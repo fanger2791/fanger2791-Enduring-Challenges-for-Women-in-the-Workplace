@@ -3,7 +3,7 @@
 # - The range of years present in the dataset to ensure it matches expected years.
 # - Missing values in the men and women columns to spot any incomplete data.
 # - The data type for year, men, and women to ensure they are numeric as expected for analysis.
-# - Negative values in men and women counts, which could indicate data entry errors. # nolint
+# - Negative values in men and women counts, which could indicate data entry errors.
 # Author: David James Dimalanta, Harrison Huang, Michael Fang
 # Date: 8 March 2024
 # Contact: david.dimalanta@mail.utoronto.ca
