@@ -1,8 +1,8 @@
 #### Preamble ####
 # Purpose: Basic data integrity checks for datasets using tidyverse. This script first defines the check_census_data function tailored to check for:  # nolint
-# - The range of years present in the dataset to ensure it matches expected years. # nolint: line_length_linter.
+# - The range of years present in the dataset to ensure it matches expected years.
 # - Missing values in the men and women columns to spot any incomplete data.
-# - The data type for year, men, and women to ensure they are numeric as expected for analysis. # nolint: line_length_linter.
+# - The data type for year, men, and women to ensure they are numeric as expected for analysis.
 # - Negative values in men and women counts, which could indicate data entry errors. # nolint
 # Author: David James Dimalanta, Harrison Huang, Michael Fang
 # Date: 8 March 2024
