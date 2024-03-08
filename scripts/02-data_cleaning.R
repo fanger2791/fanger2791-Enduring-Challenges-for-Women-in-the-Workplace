@@ -4,7 +4,8 @@
 # Date: 8 March 2024
 # Contact: david.dimalanta@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: 01-download_data.R
+# Pre-requisites:
+# - 01-download_data.R
 
 #### Workspace setup ####
 library(dplyr)
