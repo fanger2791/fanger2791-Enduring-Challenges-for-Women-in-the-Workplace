@@ -106,7 +106,36 @@ ggplot(data) +
        color = "Gender") +
   theme_minimal()
 ```
+## Biases against hiring women
 
+```{r}
+#| label: fig-prefhiring
+#| fig-cap: Opinions on Preferential Hiring Over Time
+#| echo: false
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(readxl)
+library(tidyr)
+
+# Read the data from the Excel file
+data <- read_excel("../data/analysis_data/pref_hiring.xlsx")
+
+# Reshape the data to long format for easier plotting with ggplot2
+data_long <- pivot_longer(data, cols = -Year, names_to = "Category", values_to = "Count")
+
+# Plot
+ggplot(data_long, aes(x = Year, y = Count, fill = Category)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_minimal() +
+  labs(
+       x = "Year",
+       y = "Count") +
+  scale_fill_brewer(palette = "Set1") +
+  theme(legend.position = "bottom")
+
+```
 
 
 # Discussion
