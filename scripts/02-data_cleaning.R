@@ -24,6 +24,7 @@ raw_education_data <- read_csv("data/raw_data/education.csv")
 raw_fefam_data <- read_csv("data/raw_data/fefam.csv")
 raw_fehire_data <- read_csv("data/raw_data/should_hire_women.csv")
 raw_discaffw_data <- read_csv("data/raw_data/women_wont_get_job.csv")
+
 # clean names for datasets
 cleaned_data <- clean_names(raw_data)
 cleaned_education_data <- clean_names(raw_education_data)
@@ -89,7 +90,6 @@ education_data <- cleaned_education_data |>
          bachelor = x10,
          graduate = x11)
 
-
 # Format year data as numeric for line graphs
 ft_data$year <- as.numeric(ft_data$year)
 pt_data$year <- as.numeric(pt_data$year)
@@ -142,6 +142,21 @@ discaffw_data_long <- discaffw_data |>
   mutate(Count = as.numeric(Count))
 
 
+# Correctly filter ft_data_long for women only
+ft_data_long_women <- ft_data_long |>
+  filter(gender == "women") |>
+  mutate(category = "Full-Time Work for Women") |>
+  select(year, count, category) |>
+  rename(Count = count)
+
+# Ensure higher_ed is prepared correctly
+higher_ed <- education_data_long |>
+  filter(`Education Level` %in% c("bachelor", "graduate")) |>
+  mutate(category = `Education Level`) |>
+  select(year, Count = Count, category)
+
+# Combine the education and fulltime datasets for women
+combined_data <- bind_rows(ft_data_long_women, higher_ed)
 
 ### Save cleaned data to analysis_data folder
 write_csv(ft_data, "data/analysis_data/full_time_data.csv")
@@ -220,3 +235,14 @@ ggplot(discaffw_data_long, aes(x = year, y = Count, group = Response, color = Re
        y = "Count",
        color = "Response Category") +
   theme_minimal()
+
+# combined education and full-time data in line graph
+ggplot(combined_data, aes(x = as.numeric(as.character(year)), y = Count, color = category, group = category)) +
+  geom_line() +
+  scale_y_continuous(name = "Count", limits = c(0, 1000)) +
+  labs(title = "Comparison of Full-Time Work for Women with Higher Education Levels",
+       x = "Year",
+       y = "Count",
+       color = "Category") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
