@@ -171,7 +171,12 @@ ggplot(data_long, aes(x = Year, y = Count, fill = Category)) +
 
 ## Strengths of US GSS
 
+Interviews have been conducted with a total of 51,020 respondents. The 1972-74 surveys used modified probability designs and the remaining surveys were completed using a
+full-probability sample design, producing a high-quality, representative sample of the adult population of the U.S. The GSS has a response rate of over 70 percent above that of other major social science surveys and 40-45 percentage points higher than the industry average.
+
 ## Potential Ethical and Bias Issues with Survey Methodology
+
+In the Fehelp variable, the question is framed as “It is more important for a wife to help her husband's career than to have one herself” and then participants are asked to respond from Strongly agree, agree, disagree, to disagree strongly. The main issue with these types of questions is the wording and the answer scales. This wordy question, could lose the reader or create misunderstanding. In a lengthy survey, it is very important to keep questions concise and straightforward. The question could be rephrased as: “Whose career is more important in a relationship?” and then the scale of wife and husband on a scale. This way it would not prompt the participant to think in any direction before actually answering the question thus reducing biases that might have occurred otherwise. Another thing worthy to mention is the percentage of participants in the actual population. Simply looking at the number of total respondents may seem very impressive, however when compared on a large scale, it is less than 0.0001% of the population. Since the percentage is so low, it is very difficult to make generalizations about the actual population like this. 
 
 ## Potential improvements 
 
