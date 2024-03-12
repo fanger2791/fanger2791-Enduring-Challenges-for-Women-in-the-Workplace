@@ -36,6 +36,79 @@ The General Social Survey (GSS) is an ongoing interview survey of U.S. household
 
 # Results
 
+## Respondent Demograpgics
+
+## Respondent Labour Status
+
+```{r}
+#| label: fig-fulltime
+#| fig-cap: Full Time Work Status by Gender Over Time
+#| echo: false
+#| warning: false
+#| message: false
+
+library(ggplot2)
+
+data <- read.csv("../data/analysis_data/full_time_data.csv")
+
+ggplot(data) +
+  geom_line(aes(x = year, y = men, color = "Men")) +
+  geom_line(aes(x = year, y = women, color = "Women")) +
+  scale_color_manual(values = c("Men" = "blue", "Women" = "pink")) +
+  labs(
+       x = "Year",
+       y = "Number of People",
+       color = "Gender") +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-part_time
+#| fig-cap: Part Time Work Status by Gender Over Time
+#| echo: false
+#| warning: false
+#| message: false
+
+library(ggplot2)
+
+data <- read.csv("../data/analysis_data/part_time_data.csv")
+
+ggplot(data) +
+  geom_line(aes(x = year, y = men, color = "Men")) +
+  geom_line(aes(x = year, y = women, color = "Women")) +
+  scale_color_manual(values = c("Men" = "blue", "Women" = "pink")) +
+  labs(
+       x = "Year",
+       y = "Number of People",
+       color = "Gender") +
+  theme_minimal()
+```
+
+
+```{r}
+#| label: fig-parttime
+#| fig-cap: Unemployed Work Status by Gender Over Time
+#| echo: false
+#| warning: false
+#| message: false
+
+library(ggplot2)
+
+data <- read.csv("../data/analysis_data/unemployed_data.csv")
+
+ggplot(data) +
+  geom_line(aes(x = year, y = men, color = "Men")) +
+  geom_line(aes(x = year, y = women, color = "Women")) +
+  scale_color_manual(values = c("Men" = "blue", "Women" = "pink")) +
+  labs(
+       x = "Year",
+       y = "Number of People",
+       color = "Gender") +
+  theme_minimal()
+```
+
+
+
 # Discussion
 
 ## Strengths of US GSS
@@ -51,5 +124,7 @@ A potential improvement that could be implemented to improve the issues mentione
 
 
 # References
+
+
 
 
