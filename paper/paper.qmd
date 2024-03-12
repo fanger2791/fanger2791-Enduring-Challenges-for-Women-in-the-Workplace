@@ -1,10 +1,11 @@
 ---
-title: "My title"
+title: "Evolving Dynamics: The U.S. Labor Force from 1972 to 2022 and the Enduring Challenges for Women in the Workplace"
 subtitle: "My subtitle if needed"
 author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: LINK."
+  - Michael Fang
+  - Harrison Huang
+  - David James Dimalanta
+thanks: "Code and data are available at: https://github.com/fanger2791/fanger2791-Enduring-Challenges-for-Women-in-the-Workplace."
 date: today
 date-format: long
 abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
@@ -13,204 +14,37 @@ number-sections: true
 bibliography: references.bib
 ---
 
-```{r}
-#| include: false
-#| warning: false
-#| message: false
-
-library(tidyverse)
-library(palmerpenguins)
-```
-
-
 # Introduction
 
-You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
+The makeup of the workplace in the United States has undergone significant transformations over the last five decades, notably in terms of gender diversity and the participation of women. These changes reflect broader social, economic, and legal shifts, yet despite these advancements, women continue to face unique challenges in the workplace.
 
-The remainder of this paper is structured as follows. @sec-data....
+In 1972, the U.S. labor force was predominantly male and concentrated in manufacturing, agriculture, and primary industries. The era was marked by the dominance of traditional industries and a relatively stable employment landscape, beginning to transform due to globalization and technological advancements. The period also saw the beginnings of significant social movements, including those for civil rights and gender equality, which would profoundly impact the labor market.
 
+We witnessed a gradual shift from manufacturing to service-oriented industries throughout the decades. This transition was fueled by globalization, with many manufacturing jobs moving offshore to countries with lower labor costs. Concurrently, the information technology revolution began to reshape the economy, leading to the growth of the tech sector and the emergence of new job categories. Economic policies also played a critical role in shaping the labor force. The deregulation of industries, tax reforms, and changes in labor laws under various administrations influenced labor market dynamics, affecting job creation, wage levels, and the nature of employment contracts. For instance, policies favoring deregulation and tax cuts in the 1980s under the Reagan administration had long-term effects on income distribution and labor practices.
 
+Despite these gains, occupational segregation remains a persistent issue. Women are overrepresented in healthcare, education, and service industries while underrepresented in engineering, technology, and construction fields. These patterns are partly due to societal expectations and gender stereotypes that influence educational and career choices from an early age. The gender wage gap is another enduring challenge. Although it has narrowed over time, women still earn less than men. This disparity can be attributed to several factors, including differences in industries and occupations, work experience, and hours worked. Additionally, the wage gap widens with age and is more pronounced for women of color, indicating the intersectionality of gender, race, and economic inequality.
 
-# Data {#sec-data}
+This paper will 
 
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
+# Data
 
-```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
-#| echo: false
+Data used in this paper are retrieved from the US General Social Survey(GSS).
+The General Social Survey (GSS) is an ongoing interview survey of U.S. households conducted by the National Opinion Research Center. It has provided a wealth of data on contemporary American society for approximately 35 years by measuring social change and trends and constants in the adult population's attitudes, behaviors, and attributes. It includes a questionnaire such as demographics, attitudes, and ideas towards certain beliefs, and even extends economic ideologies such as spending priorities. The goal is to have high-quality data available to social scientists and researchers. Over the years, the GSS has worked continuously to make the survey better. One major improvement worthy of mentioning is the addition of a Spanish version, since there is a big demographic of the U.S. that speaks Spanish, this would provide a significant increase in the coverage of U.S. household responses.
 
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
-```
-
-Talk more about it.
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
-
-```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
-#| echo: false
-#| warning: false
-#| message: false
-
-analysis_data <- read_csv(here::here("data/analysis_data/analysis_data.csv"))
-
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
-```
-
-Talk way more about it. 
-
-
-
-# Model
-
-The goal of our modelling strategy is twofold. Firstly,...
-
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
-
-## Model set-up
-
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
-
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
-
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
-
-
-### Model justification
-
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
-
-We can use maths by including latex between dollar signs, for instance $\theta$.
+## Source Data
 
 
 # Results
 
-Our results are summarized in @tbl-modelresults.
-
-```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-
-library(rstanarm)
-
-first_model <-
-  readRDS(file = here::here("models/first_model.rds"))
-```
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
-#| warning: false
-
-modelsummary::modelsummary(
-  list(
-    "First model" = first_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
-```
-
-
-
-
 # Discussion
 
-## First discussion point {#sec-first-point}
+## Strengths of US GSS
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
+## Potential Ethical and Bias Issues with Survey Methodology
 
-## Second discussion point
+## Potential improvements 
 
-## Third discussion point
-
-## Weaknesses and next steps
-
-Weaknesses and next steps should also be included.
-
-\newpage
-
-\appendix
-
-# Appendix {-}
-
-
-# Additional data details
-
-# Model details {#sec-model-details}
-
-## Posterior predictive check
-
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
-
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
-
-```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-ppcheckandposteriorvsprior
-#| layout-ncol: 2
-#| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
-
-pp_check(first_model) +
-  theme_classic() +
-  theme(legend.position = "bottom")
-
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
-```
-
-## Diagnostics
-
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
-
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
-
-```{r}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
-#| layout-ncol: 2
-
-plot(first_model, "trace")
-
-plot(first_model, "rhat")
-```
-
+A potential improvement that could be implemented to improve the issues mentioned above is to update the questionnaires every year. Have a psychologist screen and update the questionnaires yearly to ensure that questions are worded properly and do not initiate any thoughts from the readers. Another thing to ensure is that the language used is up to date. In addition to removing biased wording, it is also important to ensure that the words are recent enough and are not words we no longer use. Since this survey has been ongoing for a long time, such measures should maintain the quality of the survey. Lastly, the increased coverage of participants would also be very beneficial. A method could be to survey states by state ensuring that they meet a certain percentage of the population before moving on to the next state. However, this would be a very time-consuming and tedious process, not every survey has the funding and time for such an approach. These implementations would improve the quality of the survey allowing for more accurate presentations of the population. 
 
 
 \newpage
