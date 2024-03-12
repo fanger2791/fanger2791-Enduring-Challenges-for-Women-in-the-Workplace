@@ -33,6 +33,31 @@ The General Social Survey (GSS) is an ongoing interview survey of U.S. household
 
 ## Source Data
 
+```{r}
+#| echo: false
+#| tbl-cap: Women in the workforce survey data
+
+library(kableExtra)
+
+variable_data <- data.frame( 
+  Variable = c("fejobaff", 
+               "fehire", 
+               "Fefam",
+               "Discaffw"), 
+  Description = c("For or against preferential hiring of                       women",
+                  "Should hire and promote women",
+                  "Is it better for man to work, and a woman                    to tend home", 
+                  "A woman won't get a job or promotion"), 
+  ExampleResponse = c("Strongly Favor", 
+              "Disagree", 
+              "Agree",
+              "Somewhat likely")
+)
+
+variable_data %>%
+  kbl() %>%
+  kable_classic_2(full_width = F)
+```
 
 # Results
 
@@ -134,6 +159,10 @@ ggplot(data_long, aes(x = Year, y = Count, fill = Category)) +
        y = "Count") +
   scale_fill_brewer(palette = "Set1") +
   theme(legend.position = "bottom")
+
+```
+
+```{r}
 
 ```
 
