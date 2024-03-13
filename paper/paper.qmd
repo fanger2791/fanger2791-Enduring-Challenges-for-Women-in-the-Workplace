@@ -54,8 +54,8 @@ variable_data <- data.frame(
               "Somewhat likely")
 )
 
-variable_data %>%
-  kbl() %>%
+variable_data |>
+  kbl() |>
   kable_classic_2(full_width = F)
 ```
 
@@ -162,10 +162,190 @@ ggplot(data_long, aes(x = Year, y = Count, fill = Category)) +
 
 ```
 
+# Results
 ```{r}
+#| label: fig-fehire
+#| fig-cap: Attitudes Towards Hiring and Promoting Women
+#| echo: false
+#| warning: false
+#| message: false
 
+library(ggplot2)
+library(readxl)
+library(tidyr)
+
+# read in data
+fehire_data <- read_csv("../data/analysis_data/fehire_data.csv")
+
+# Format year data as numeric for line graphs
+fehire_data$year <- as.numeric(fehire_data$year)
+
+# Reshape the data to long format for line graphs and convert 'count' to numeric
+fehire_data_long <- fehire_data |>
+  pivot_longer(cols = c(strongly_agree, agree, disagree, strongly_disagree),
+               names_to = "Response",
+               values_to = "Count") |>
+  mutate(Count = as.numeric(Count))
+
+# fehire line graph
+ggplot(fehire_data_long, aes(x = year, y = Count, group = Response, color = Response)) +
+  geom_line() +
+  scale_y_continuous(limits = c(0, 1000)) +
+  labs(title = "Fehire Responses Over Time",
+       x = "Year",
+       y = "Count",
+       color = "Response Category") +
+  theme_minimal()
 ```
 
+```{r}
+#| label: fig-fefam
+#| fig-cap: Views on Gender Roles in Work and Family Life
+#| echo: false
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(readxl)
+library(tidyr)
+
+# read in data
+fefam_data <- read_csv("../data/analysis_data/fefam_data.csv")
+
+# Format year data as numeric for line graphs
+fefam_data$year <- as.numeric(fefam_data$year)
+
+# Reshape the data to long format for line graphs and convert 'count' to numeric
+fefam_data_long <- fefam_data |>
+  pivot_longer(cols = c(strongly_agree, agree, disagree, strongly_disagree),
+               names_to = "Response to: better for man to work, woman tend home",
+               values_to = "count") |>
+  mutate(count = as.numeric(count))
+
+# fefam line graph
+ggplot(fefam_data_long, aes(x = year, y = count, group = `Response to: better for man to work, woman tend home`, color = `Response to: better for man to work, woman tend home`)) +
+  geom_line() +
+  scale_y_continuous(limits = c(0, 1200)) +
+  labs(title = "Responses to: better for man to work, woman tend home",
+       x = "Year",
+       y = "Count") +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-discaffw
+#| fig-cap: Perceptions of Discrimination Against Women in Job Promotions
+#| echo: false
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(readxl)
+library(tidyr)
+
+# read in data
+discaffw_data <- read_csv("../data/analysis_data/discaffw_data.csv")
+
+# Format year data as numeric for line graphs
+discaffw_data$year <- as.numeric(discaffw_data$year)
+
+# Reshape the data to long format for line graphs and convert 'count' to numeric
+discaffw_data_long <- discaffw_data |>
+  pivot_longer(cols = c(very_likely, somewhat_likely, somewhat_unlikely, very_unlikely),
+               names_to = "Response",
+               values_to = "Count") |>
+  mutate(Count = as.numeric(Count))
+
+# discaffw line graph
+ggplot(discaffw_data_long, aes(x = year, y = Count, group = Response, color = Response)) +
+  geom_line() +
+  scale_y_continuous(limits = c(0, 700)) +
+  labs(title = "Discaffw Responses Over Time",
+       x = "Year",
+       y = "Count",
+       color = "Response Category") +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-education
+#| fig-cap: Educational Attainment by Gender
+#| echo: false
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(readxl)
+library(tidyr)
+
+# read in data
+education_data <- read_csv("../data/analysis_data/education_data.csv")
+
+# Format year data as numeric for line graphs
+education_data$year <- as.numeric(education_data$year)
+
+# Reshape the data to long format for line graphs and convert 'count' to numeric
+education_data_long <- education_data |>
+  pivot_longer(cols = c(less_than_highschool, high_school, junior_college, bachelor, graduate),
+               names_to = "Education Level",
+               values_to = "Count") |>
+  mutate(Count = as.numeric(Count))
+
+# education line graph
+ggplot(education_data_long, aes(x = year, y = Count, group = `Education Level`, color = `Education Level`)) +
+  geom_line() +
+  labs(title = "Education Levels Over Time",
+       x = "Year",
+       y = "Count",
+       color = "Education Level") +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-eduTojob
+#| fig-cap: Trends in Full-Time Work and Educational Attainment for Women
+#| echo: false
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(readxl)
+library(tidyr)
+
+# read in data
+combined_data <- read_csv("../data/analysis_data/combined_data.csv")
+
+# combined education and full-time data in line graph
+ggplot(combined_data, aes(x = as.numeric(as.character(year)), y = Count, color = category, group = category)) +
+  geom_line() +
+  scale_y_continuous(name = "Count", limits = c(0, 1000)) +
+  labs(title = "Comparison of Full-Time Work for Women with Higher Education Levels",
+       x = "Year",
+       y = "Count",
+       color = "Category") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Attitudes Towards Hiring and Promoting Women
+@fig-fehire describes the GSS data on attitudes towards hiring and promoting women ("FEHIRE") from 1996 to 2022, showing a progressive shift towards more positive attitudes. The proportion of respondents strongly agreeing with the need to hire and promote women has seen a significant increase, particularly noticeable in the year 2021, where 620 respondents strongly agreed, compared to 244 in 1996. This trend suggests a growing consensus on the importance of gender equality in the workplace over the analyzed period. Despite this positive shift, there remains a consistent portion of respondents who disagree to varying degrees, highlighting that there is still work to be done to achieve universal acceptance of this principle.
+
+## Perceptions of Discrimination Against Women in Job Promotions
+@fig-discaffw describes data on perceptions of discrimination against women in job promotions ("DISCAFFW") from 1996 to 2022, also indicating evolving public opinion. While the early years showed a more divided view on the likelihood of a woman not getting a job or promotion due to discrimination, there is a noticeable decline in the percentage of respondents who find it "very likely" or "somewhat likely." However, the absence of data in 2021 for this variable suggests a gap in understanding public opinion for that year. The overall trend suggests an increasing awareness and potentially decreasing concern over direct discrimination as a barrier to women's career advancement, though substantial concern remains.
+
+## Views on Gender Roles in Work and Family Life
+@fig-fefam describes the survey responses to "FEFAM," concerning the belief that it's better for men to work and women to tend to the home, showing significant changes from 1977 to 2022. Early in the survey period, a substantial number of respondents agreed with traditional gender roles. Over time, there's been a notable shift towards disagreement with this view, especially strong in the 2021 data, where 1,146 strongly disagreed. This evolution reflects broader societal changes towards gender roles within family and work life, emphasizing a move towards more egalitarian views.
+
+## Educational Attainment by Gender
+@fig-education shows the GSS data on educational attainment, segmented by gender from 1972 to 2022, revealing trends in the pursuit and achievement of higher education. Both males and females have shown increased attainment of bachelor's and graduate degrees over time. Notably, the gap in educational attainment between males and females has narrowed, with women showing significant gains in both bachelor's and graduate degrees, especially highlighted in the 2021 data. This trend underscores the increasing value placed on education for all individuals, regardless of gender, and reflects the broader societal shifts towards gender equality in education.
+
+## Full-Time Work for Women
+@fig-eduTojob reveals a significant upward trend in the number of women engaged in full-time employment over the years. Starting from 191 women in 1972, the numbers generally increased, peaking at 963 women in full-time work in 2006, before experiencing fluctuations and settling at 728 in 2022. This progression underscores the growing integration of women into the workforce and the breaking down of traditional gender roles that confined women to domestic responsibilities. The notable peak in 2006 could be indicative of economic, social, and legislative changes that encouraged or necessitated higher female participation in the workforce.
+
+## Educational Attainment by Gender
+Parallel to the rise in full-time employment, @fig-eduTojob also highlights significant strides in women's educational attainment. The data tracks the number of women who have achieved bachelor's and graduate degrees from 1972 through 2022. In 1972, 45 women held bachelor's degrees and 10 held graduate degrees. By 2022, these numbers had surged to 353 for bachelor's degrees and 228 for graduate degrees, reflecting a substantial increase in higher education attainment among women.
+
+This trend not only demonstrates the shifting societal expectations and the dismantling of barriers to women's education but also aligns with the increased demand for higher education in a knowledge-driven economy. The remarkable increase in graduate degrees highlights the progress toward gender parity in advanced education levels, potentially contributing to narrowing the gender gap in professional and academic fields.
 
 # Discussion
 
