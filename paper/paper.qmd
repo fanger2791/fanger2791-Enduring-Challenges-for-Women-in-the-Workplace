@@ -14,6 +14,19 @@ number-sections: true
 bibliography: references.bib
 ---
 
+```{r}
+#| include: false
+### Workspace Setup ###
+library(dplyr)
+library(tidyverse)
+library(knitr)
+library(janitor)
+library(lubridate)
+library(readr)
+library(ggplot2)
+```
+
+
 # Introduction
 
 Over the past fifty years, the U.S. labor force has undergone significant transformations, reflecting broader socio-economic shifts, technological advancements, and changing demographic patterns. These changes have had profound implications for employment practices, workplace cultures, and the economic opportunities available to different segments of the population. However, despite these overall shifts, women in the workforce have continued to face enduring challenges, including gender pay gaps, underrepresentation in leadership positions, and the persistent juggling act of work-family balance. This paper delves into the evolving dynamics of the U.S. labor force from 1972 to 2022, with a lens on understanding how these broader changes have intersected with the experiences of women in the workplace.
