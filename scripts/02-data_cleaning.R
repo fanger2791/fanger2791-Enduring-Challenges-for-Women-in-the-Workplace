@@ -8,13 +8,11 @@
 # - 01-download_data.R
 
 #### Workspace setup ####
-library(dplyr)
 library(tidyverse)
 library(knitr)
 library(janitor)
 library(lubridate)
-library(readr)
-library(ggplot2)
+
 
 #### Clean data ####
 
