@@ -29,17 +29,16 @@ library(ggplot2)
 
 # Introduction
 
-Over the past fifty years, the U.S. labor force has undergone significant transformations, reflecting broader socio-economic shifts, technological advancements, and changing demographic patterns. These changes have had profound implications for employment practices, workplace cultures, and the economic opportunities available to different segments of the population. However, despite these overall shifts, women in the workforce have continued to face enduring challenges, including gender pay gaps, underrepresentation in leadership positions, and the persistent juggling act of work-family balance. This paper delves into the evolving dynamics of the U.S. labor force from 1972 to 2022, with a lens on understanding how these broader changes have intersected with the experiences of women in the workplace.
+Over the past fifty years, the U.S. labor force has undergone significant transformations, reflecting broader socio-economic shifts, technological advancements, and changing demographic patterns. These changes have had profound implications for employment practices, workplace cultures, and the economic opportunities available to different segments of the population. However, despite these overall shifts, women in the workforce have continued to face enduring challenges, including gender pay gaps, underrepresentation in leadership positions, and the persistent juggling act of work-family balance. This paper examines the evolving dynamics of the U.S. labor force from 1972 to 2022, focusing on how these broader changes have intersected with the experiences of women in the workplace.
 
-The gap combines an exploration of broad labor force trends with an examination of the specific, ongoing challenges that women encounter in the workplace. While there is substantial literature on both subjects separately, there is a notable lack of comprehensive studies that integrate these perspectives to offer a detailed understanding of how historical and current labor force dynamics interact with gender-specific issues. To fill this gap, our study leverages data from the U.S. General Social Survey (GSS), to explore the nuanced ways in which the labor market's evolution over five decades has impacted women's experiences in the workforce.
+As we focus on the exploration of labor force trends with an examination of the specific, ongoing challenges that women encounter in the workplace, we will touch on how our investigation seeks to bridge the gap on general labor trends and women's workplace challenges by employing data from the U.S. General Social Survey (GSS). This allows us to dissect how five decades of labor market evolution have sculpted the professional landscape for women. We aim to uncover the intricate ways in which shifts in the labor force have impacted women's experiences in the workforce.
 
-The analysis of GSS data, reveals that, despite significant strides in participation rates and educational attainment among women, numerous deep-rooted barriers persist. These barriers include persistent gender segregation in certain industries and biases in hiring and promotion practices. Crucially, the survey highlights the diversity of women's experiences in the labor market, underscoring the importance of an intersectional approach to understanding workplace challenges.
+The U.S. General Social Survey (GSS) has been a pivotal source of data, employing a sampling approach to ensure representative insights into the American public's attitudes, behaviors, and attributes since 1972. This methodology involves selecting participants to mirror the U.S. population's demographic makeup, including variations by region, age, gender, and socio-economic status. Notably, the GSS adapted its data collection methods in response to the COVID-19 pandemic, transitioning to online and phone surveys to maintain participant safety and response rates. These adjustments, while necessary, introduced potential implications for trend analysis, including variations in response rates and the potential for digital access disparities. Despite these challenges, our analysis of the GSS data reveals striking findings. For instance, from 1972 to 2022, women's participation in the workforce increased significantly. Initially, the workforce was predominantly male, with 570 men working full time compared to 191 women in 1972 but by 2022, the number of women working full-time had increased to 728 from 191 in 1972, showing substantial progress towards gender equality in the workplace. However, the persistence of work-family balance challenges is evident, underscoring the ongoing struggle to integrate professional and personal responsibilities. This paper will reveal that despite an increase in participation rates and educational attainment among women, numerous deep-rooted barriers persist. Crucially, this paper highlights the diversity of women's experiences in the labor market, underscoring the importance of an intersectional approach to understanding workplace challenges.
 
-The importance of this research lies in its comprehensive examination of the structural barriers that continue to limit gender equality in the workplace. By mapping the historical and contemporary landscape of the labor market with a focus on women's experiences, the paper offers valuable insights for policymakers, business leaders, and social advocates. These insights aim to inform efforts to create a more inclusive, equitable, and supportive working environment for all.
+The paper is organized as follows: Section two @sec-data details the methodology and source data, including the use of GSS data. Section three @sec-results provides an analysis of labor force trends over the past fifty years, with an emphasis on changes in employment patterns, workforce participation, and educational attainment among women. Section four @sec-discussion delves into the specific challenges women face in the workplace, utilizing quantitative data from the GSS and discusses the broader implications of these findings, offering targeted recommendations for policy and practice to address gender disparities.
 
-The paper is organized as follows: Section two details the methodology and source data, including the use of GSS data. Section three provides an analysis of labor force trends over the past fifty years, with an emphasis on changes in employment patterns, workforce participation, and educational attainment among women. Section four delves into the specific challenges women face in the workplace, utilizing quantitative data from the GSS and discusses the broader implications of these findings, offering targeted recommendations for policy and practice to address gender disparities.
 
-# Data
+# Data {#sec-data}
 
 Data used in this paper are retrieved from the US General Social Survey(GSS).
 The General Social Survey (GSS) is an ongoing interview survey of U.S. households conducted by the National Opinion Research Center. It has provided a wealth of data on contemporary American society for approximately 35 years by measuring social change and trends and constants in the adult population's attitudes, behaviors, and attributes. It includes a questionnaire such as demographics, attitudes, and ideas towards certain beliefs, and even extends economic ideologies such as spending priorities. The goal is to have high-quality data available to social scientists and researchers. Over the years, the GSS has worked continuously to make the survey better. One major improvement worthy of mentioning is the addition of a Spanish version, since there is a big demographic of the U.S. that speaks Spanish, this would provide a significant increase in the coverage of U.S. household responses.
@@ -68,13 +67,28 @@ variable_data <- data.frame(
               "Agree",
               "Somewhat likely")
 )
-
 variable_data |>
-  kbl() |>
-  kable_classic_2(full_width = F)
+ slice(1:10) |>
+  kable(digits = 1,
+    booktabs = TRUE,
+    linesep = ""
+  )
 ```
 
-# Results
+## Survey Methodology
+
+The survey methodology of the U.S. General Social Survey (GSS) employs a rigorous and systematic approach to collecting data that accurately reflects the attitudes, behaviors, and demographics of the United States population. Central to its methodology is the use of a stratified sampling technique, which ensures that various segments of the population are represented proportionately. This involves dividing the population into strata—such as geographic regions, age groups, gender, and racial or ethnic categories—and then randomly selecting participants from each stratum to achieve a sample that mirrors the broader population's characteristics. To maintain the integrity and reliability of the data, the GSS also adheres to strict protocols for questionnaire design, testing, and administration, incorporating both established and new questions to capture evolving social trends and issues. Interviews are conducted face-to-face or via telephone by trained interviewers, ensuring that responses are collected in a consistent and unbiased manner. Over the years, the GSS has adapted its methodologies to address challenges such as declining response rates and the advent of new technologies, including moving towards mixed-mode data collection strategies that may incorporate online surveys. The data collection process is underpinned by a commitment to ethical standards, protecting the privacy and confidentiality of respondents. The meticulous survey methodology of the GSS ensures the production of high-quality, reliable data, making it an invaluable resource for researchers, policymakers, and social scientists seeking to understand the complex fabric of American society.
+
+## Data Limitations
+
+The COVID-19 pandemic posed unprecedented challenges to data collection efforts, including those of the General Social Survey (GSS), necessitating significant adjustments in methodology that may impact the reliability and comparability of the data collected during this period. In response to social distancing guidelines, the GSS likely had to transition from traditional in-person interviews to remote data collection methods, such as online surveys or telephone interviews. While essential for public health, these shifts could introduce biases, particularly affecting response rates and the representativeness of certain demographic groups less comfortable or accessible via these technologies. The pandemic's uneven impact across various regions, economic statuses, and racial demographics further complicates sampling efforts, potentially skewing the sample composition.
+
+Moreover, the general upheaval caused by the pandemic—characterized by heightened levels of stress, health concerns, and economic instability—may have influenced individuals' willingness or capacity to participate in surveys, potentially leading to lower response rates and affecting the quality of responses. This variability complicates the task of comparing data collected during the pandemic with previous years, as the unique circumstances could significantly impact respondents' perceptions and experiences. Additionally, the GSS might not have been fully equipped to measure new phenomena introduced by the pandemic, such as the surge in remote work, limiting its ability to capture the full scope of COVID-19's impact on the labor force and, more specifically, on women's experiences within it.
+
+
+## Data Cleaning
+
+# Results {#sec-results}
 
 ## Respondent Demographics
 
@@ -374,7 +388,7 @@ Parallel to the rise in full-time employment, @fig-eduTojob also highlights sign
 This trend not only demonstrates the shifting societal expectations and the dismantling of barriers to women's education but also aligns with the increased demand for higher education in a knowledge-driven economy. The remarkable increase in graduate degrees highlights the progress toward gender parity in advanced education levels, potentially contributing to narrowing the gender gap in professional and academic fields.
 
 
-# Discussion
+# Discussion {#sec-disucssion}
 
 ## Strengths of US GSS
 
