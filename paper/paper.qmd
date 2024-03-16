@@ -1,6 +1,6 @@
 ---
-title: "Evolving Dynamics: The U.S. Labor Force from 1972 to 2022 and the Enduring Challenges for Women in the Workplace"
-subtitle: "My subtitle if needed"
+title: "Evolving Dynamics: The U.S. Labor Force from 1972 to 2022"
+subtitle: "The Enduring Challenges for Women in the Workplace"
 author: 
   - Michael Fang
   - Harrison Huang
@@ -88,8 +88,8 @@ library(tidyverse)
 library(kableExtra)
 
 variable_data <- data.frame( 
-  Variable = c("fejobaff", 
-               "fehire", 
+  Variable = c("Fejobaff", 
+               "Fehire", 
                "Fefam",
                "Discaffw"), 
   Description = c("For or against preferential hiring of                       women",
@@ -195,7 +195,9 @@ Moreover, the general upheaval caused by the pandemic—characterized by heighte
 
 ## Data Cleaning
 
+R [@citeR] was the language and environment used for this paper as well as throughout the data cleaning process, with different packages such as tidyverse [@tidyverse], ggplot2 [@ggplot2], dplyr [@dplyr], tidyr [@tidyr], knitr [@knitr] packages. 
 
+From searching and filtering through different variables within the GSS, we were able to tabulate different datasets. Through this tabulation process, we were able to examine which years had data and years that did not, which allowed us to remove the empty years from the dataset. 
 
 # Results {#sec-results}
 
