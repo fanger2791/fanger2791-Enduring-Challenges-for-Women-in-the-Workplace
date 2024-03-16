@@ -11,6 +11,7 @@ date-format: long
 abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
 format: pdf
 number-sections: true
+toc: true
 bibliography: references.bib
 ---
 
@@ -40,15 +41,48 @@ The paper is organized as follows: Section two @sec-data details the methodology
 
 # Data {#sec-data}
 
-Data used in this paper are retrieved from the US General Social Survey(GSS).
+Data used in this paper are retrieved from the U.S. General Social Survey (GSS).
 The General Social Survey (GSS) is an ongoing interview survey of U.S. households conducted by the National Opinion Research Center. It has provided a wealth of data on contemporary American society for approximately 35 years by measuring social change and trends and constants in the adult population's attitudes, behaviors, and attributes. It includes a questionnaire such as demographics, attitudes, and ideas towards certain beliefs, and even extends economic ideologies such as spending priorities. The goal is to have high-quality data available to social scientists and researchers. Over the years, the GSS has worked continuously to make the survey better. One major improvement worthy of mentioning is the addition of a Spanish version, since there is a big demographic of the U.S. that speaks Spanish, this would provide a significant increase in the coverage of U.S. household responses.
 
 ## Source Data
+
+For Demographic data, we obtained the following data, shown in @tbl-demographic. The "Wrkstat" variable captures the labor force status of the respondents, detailing whether individuals are employed full time, employed part time, or unemployed. This variable is crucial for understanding the employment landscape and analyzing trends related to workforce participation and unemployment rates. The "Sex" variable is essential for examining gender disparities across different spheres, including the workplace and education. The "Educ" variable records the highest year of school completed by respondents, serving as a key indicator of educational attainment. 
 
 ```{r}
 #| echo: false
 #| warning: false
 #| message: false
+#| label: tbl-demographic
+#| tbl-cap: Demographic Data from U.S GSS
+library(tidyverse)
+library(kableExtra)
+
+demo_data <- data.frame( 
+  Variable = c("Sex", 
+               "Wrkstat", 
+               "Educ"), 
+  Description = c("Respondent's Gender", 
+                  "Labor force status",
+                  "Highest year of school completed"), 
+  ExampleResponse = c("Female", 
+                      "Working Full Time", 
+                      "Bachelor's")
+)
+demo_data |>
+ slice(1:10) |>
+  kable(digits = 1,
+    booktabs = TRUE,
+    linesep = ""
+  )
+```
+
+For Workforce Survey data, we obtained the following data, shown in @tbl-womenworkforce. These questions, such as those on preferential hiring and promotion of women (Fejobaff), the necessity of hiring and promoting women (Fehire), traditional family roles (Fefam), and perceptions of workplace discrimination against women (Discaffw), collectively paint a detailed picture of societal views on gender equity and affirmative action. Together, these variables from the GSS provide invaluable insights into the complex dynamics of gender equality and discrimination in the American workplace.
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| label: tbl-womenworkforce
 #| tbl-cap: Women in the workforce survey data
 library(tidyverse)
 library(kableExtra)
@@ -74,23 +108,6 @@ variable_data |>
     linesep = ""
   )
 ```
-
-## Survey Methodology
-
-The survey methodology of the U.S. General Social Survey (GSS) employs a rigorous and systematic approach to collecting data that accurately reflects the attitudes, behaviors, and demographics of the United States population. Central to its methodology is the use of a stratified sampling technique, which ensures that various segments of the population are represented proportionately. This involves dividing the population into strata—such as geographic regions, age groups, gender, and racial or ethnic categories—and then randomly selecting participants from each stratum to achieve a sample that mirrors the broader population's characteristics. To maintain the integrity and reliability of the data, the GSS also adheres to strict protocols for questionnaire design, testing, and administration, incorporating both established and new questions to capture evolving social trends and issues. Interviews are conducted face-to-face or via telephone by trained interviewers, ensuring that responses are collected in a consistent and unbiased manner. Over the years, the GSS has adapted its methodologies to address challenges such as declining response rates and the advent of new technologies, including moving towards mixed-mode data collection strategies that may incorporate online surveys. The data collection process is underpinned by a commitment to ethical standards, protecting the privacy and confidentiality of respondents. The meticulous survey methodology of the GSS ensures the production of high-quality, reliable data, making it an invaluable resource for researchers, policymakers, and social scientists seeking to understand the complex fabric of American society.
-
-## Data Limitations
-
-The COVID-19 pandemic posed unprecedented challenges to data collection efforts, including those of the General Social Survey (GSS), necessitating significant adjustments in methodology that may impact the reliability and comparability of the data collected during this period. In response to social distancing guidelines, the GSS likely had to transition from traditional in-person interviews to remote data collection methods, such as online surveys or telephone interviews. While essential for public health, these shifts could introduce biases, particularly affecting response rates and the representativeness of certain demographic groups less comfortable or accessible via these technologies. The pandemic's uneven impact across various regions, economic statuses, and racial demographics further complicates sampling efforts, potentially skewing the sample composition.
-
-Moreover, the general upheaval caused by the pandemic—characterized by heightened levels of stress, health concerns, and economic instability—may have influenced individuals' willingness or capacity to participate in surveys, potentially leading to lower response rates and affecting the quality of responses. This variability complicates the task of comparing data collected during the pandemic with previous years, as the unique circumstances could significantly impact respondents' perceptions and experiences. Additionally, the GSS might not have been fully equipped to measure new phenomena introduced by the pandemic, such as the surge in remote work, limiting its ability to capture the full scope of COVID-19's impact on the labor force and, more specifically, on women's experiences within it.
-
-
-## Data Cleaning
-
-# Results {#sec-results}
-
-## Respondent Demographics
 
 ## Respondent Labour Status
 
@@ -166,6 +183,23 @@ ggplot(u_data) +
 
 @fig-unemployed captures the number of unemployed men and women from 1972 to 2022, providing insightful trends into the dynamics of unemployment across genders over five decades. In 1972, the dataset begins with 42 unemployed men compared to 8 unemployed women, indicating a higher male unemployment in absolute numbers. Over the years, both genders experienced fluctuations in unemployment, with notable increases during economic downturns. A significant spike in unemployment for both genders is observed in 2021, with 181 men and 150 women reported as unemployed, possibly reflecting the economic impacts of global events or shifts in the labor market. While the gap between unemployed men and women has varied, the year 2021 shows a notably smaller difference, suggesting a convergence in unemployment rates between genders.
 
+## Survey Methodology
+
+The survey methodology of the U.S. General Social Survey (GSS) employs a rigorous and systematic approach to collecting data that accurately reflects the attitudes, behaviors, and demographics of the United States population. Central to its methodology is the use of a stratified sampling technique, which ensures that various segments of the population are represented proportionately. This involves dividing the population into strata—such as geographic regions, age groups, gender, and racial or ethnic categories—and then randomly selecting participants from each stratum to achieve a sample that mirrors the broader population's characteristics. To maintain the integrity and reliability of the data, the GSS also adheres to strict protocols for questionnaire design, testing, and administration, incorporating both established and new questions to capture evolving social trends and issues. Interviews are conducted face-to-face or via telephone by trained interviewers, ensuring that responses are collected in a consistent and unbiased manner. Over the years, the GSS has adapted its methodologies to address challenges such as declining response rates and the advent of new technologies, including moving towards mixed-mode data collection strategies that may incorporate online surveys. The data collection process is underpinned by a commitment to ethical standards, protecting the privacy and confidentiality of respondents. The meticulous survey methodology of the GSS ensures the production of high-quality, reliable data, making it an invaluable resource for researchers, policymakers, and social scientists seeking to understand the complex fabric of American society.
+
+## Data Limitations
+
+The COVID-19 pandemic posed unprecedented challenges to data collection efforts, including those of the General Social Survey (GSS), necessitating significant adjustments in methodology that may impact the reliability and comparability of the data collected during this period. In response to social distancing guidelines, the GSS likely had to transition from traditional in-person interviews to remote data collection methods, such as online surveys or telephone interviews. While essential for public health, these shifts could introduce biases, particularly affecting response rates and the representativeness of certain demographic groups less comfortable or accessible via these technologies. The pandemic's uneven impact across various regions, economic statuses, and racial demographics further complicates sampling efforts, potentially skewing the sample composition.
+
+Moreover, the general upheaval caused by the pandemic—characterized by heightened levels of stress, health concerns, and economic instability—may have influenced individuals' willingness or capacity to participate in surveys, potentially leading to lower response rates and affecting the quality of responses. This variability complicates the task of comparing data collected during the pandemic with previous years, as the unique circumstances could significantly impact respondents' perceptions and experiences. Additionally, the GSS might not have been fully equipped to measure new phenomena introduced by the pandemic, such as the surge in remote work, limiting its ability to capture the full scope of COVID-19's impact on the labor force and, more specifically, on women's experiences within it.
+
+## Data Cleaning
+
+
+
+# Results {#sec-results}
+
+## Biases against hiring women
 ```{r}
 #| label: fig-prefhiring
 #| fig-cap: Opinions on Preferential Hiring Over Time
@@ -196,7 +230,6 @@ ggplot(data_long, aes(x = Year, y = Count, fill = Category)) +
 
 ```
 
-## Biases against hiring women
 @fig-prefhiring captures public opinion on hiring preferences across four categories: "Strongly favor," "Not strongly favor," "Not strongly oppose," and "Strongly oppose" from 1996 to 2006. The data reveals a fluctuating yet insightful perspective on preferences towards hiring practices over the years. In 1996, 139 individuals strongly favored certain hiring preferences, while a significant 453 strongly opposed them, indicating a polarized view on the matter. Over the following years, the number of people strongly favoring hiring preferences sees variation, peaking in 2006 with 204 individuals. Conversely, the "Strongly oppose" category also witnesses fluctuations, decreasing to 320 in 2000, then varying in subsequent years, and peaking again at 372 in 2006.
 
 ```{r}
@@ -388,7 +421,7 @@ Parallel to the rise in full-time employment, @fig-eduTojob also highlights sign
 This trend not only demonstrates the shifting societal expectations and the dismantling of barriers to women's education but also aligns with the increased demand for higher education in a knowledge-driven economy. The remarkable increase in graduate degrees highlights the progress toward gender parity in advanced education levels, potentially contributing to narrowing the gender gap in professional and academic fields.
 
 
-# Discussion {#sec-disucssion}
+# Discussion {#sec-discussion}
 
 ## Strengths of US GSS
 
