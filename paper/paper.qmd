@@ -8,7 +8,7 @@ author:
 thanks: "Code and data are available at: https://github.com/fanger2791/fanger2791-Enduring-Challenges-for-Women-in-the-Workplace."
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "As the U.S. labor force has evolved over the last fifty years, women have made significant strides but still face many obstacles on their path to equality in the workplace. This paper investigates the evolving dynamics of the U.S. labor force from 1972 to 2022, with a particular focus on women's experiences in the workplace, utilizing data from the U.S. General Social Survey (GSS). Our analysis reveals significant changes in workforce participation and the professional landscape for women over five decades, marked by increased participation rates and educational attainment. However, it also uncovers the persistent challenges women face, such as underrepresentation in leadership, and the work-family balance juggle. These findings underscore the importance of an intersectional approach in understanding and addressing the challenges women encounter in the labor market. The paper highlights the strides made towards gender equality in the workplace over the years, yet points to the deep-rooted barriers that remain, offering insights into the diversity of women's experiences within the workforce."
 format: pdf
 number-sections: true
 toc: true
