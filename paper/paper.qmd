@@ -318,7 +318,7 @@ ggplot(fefam_data_long, aes(x = year, y = count, group = `Responses`, color = `R
 
 ```{r}
 #| label: fig-discaffw
-#| fig-cap: Perceptions of c in Job Promotions
+#| fig-cap: Perceptions of Gendered Discrimination in Job Promotions
 #| echo: false
 #| warning: false
 #| message: false
