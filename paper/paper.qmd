@@ -76,7 +76,7 @@ demo_data |>
   )
 ```
 
-For Workforce Survey data, we obtained the following data, shown in @tbl-womenworkforce. These questions, such as those on preferential hiring and promotion of women (Fejobaff), the necessity of hiring and promoting women (Fehire), traditional family roles (Fefam), and perceptions of workplace discrimination against women (Discaffw), collectively paint a detailed picture of societal views on gender equity and affirmative action. Together, these variables from the GSS provide invaluable insights into the complex dynamics of gender equality and discrimination in the American workplace.
+For Workforce Survey data, we obtained the following data, shown in @tbl-womenworkforce. These questions, such as those on hiring women and promotion of women (Fejobaff), the necessity of hiring and promoting women (Fehire), traditional family roles (Fefam), and perceptions of workplace discrimination against women (Discaffw), collectively paint a detailed picture of societal views on gender equity and affirmative action. Together, these variables from the GSS provide invaluable insights into the complex dynamics of gender equality and discrimination in the American workplace.
 
 ```{r}
 #| echo: false
@@ -92,7 +92,7 @@ variable_data <- data.frame(
                "Fehire", 
                "Fefam",
                "Discaffw"), 
-  Description = c("For or against preferential hiring of                       women",
+  Description = c("For or against hiring women of                       women",
                   "Should hire and promote women",
                   "Is it better for man to work, and a woman                    to tend home", 
                   "A woman won't get a job or promotion"), 
@@ -133,7 +133,7 @@ ggplot(ft_data) +
   theme_minimal()
 ```
 
-@fig-fulltime shows the  number of men and women working full-time from 1972 to 2022, revealing significant trends in labor force participation by gender over five decades. Initially, the workforce was predominantly male, with 570 men working full time compared to 191 women in 1972. Over the years, a steady increase in the number of women working full-time is observed, narrowing the gender gap in full-time employment. By 2022, the number of women working full-time had increased to 728 from 191 in 1972, showing substantial progress towards gender equality in the workplace. The most remarkable year-over-year growth was seen between 1993 and 1994, and again significantly in 2006, reflecting possibly societal, policy, and economic changes that encouraged or necessitated increased female workforce participation. 
+@fig-fulltime shows the number of men and women working full-time from 1972 to 2022, revealing significant trends in labor force participation by gender over five decades. Initially, the workforce was predominantly male, with 570 men working full time compared to 191 women in 1972. Over the years, a steady increase in the number of women working full-time is observed, narrowing the gender gap in full-time employment. By 2022, the number of women working full-time had increased to 728 from 191 in 1972, showing substantial progress towards gender equality in the workplace. The most remarkable year-over-year growth was seen between 1993 and 1994, from 329 to 690, a surge that can be partly attributed to the enactment of the Family and Medical Leave Act (FMLA) of 1993 @fmla1993. This landmark legislation allowed employees to take up to 12 weeks of unpaid, job-protected leave for family and medical reasons, including childbirth, adoption, or the care of a close family member with a serious health condition, without fear of losing their jobs.
 
 ```{r}
 #| label: fig-part-time
@@ -157,8 +157,7 @@ ggplot(pt_data) +
   theme_minimal()
 ```
 
-@fig-part-time highlights the number of men and women engaged in part-time work from 1972 to 2022, showcasing evolving trends in part-time employment, with a noticeable gender dimension. In 1972, part-time work was more common among women (73) than men (41), a trend that persisted and widened over the decades. The gap between male and female part-time workers expanded, with women consistently outnumbering men in part-time positions. Notably, the data illustrates a significant jump in both men and women working part-time in 1994, suggesting a shift in employment patterns or economic conditions that increased part-time work availability or necessity. By 2022, the number of women working part-time reached 219, compared to 126 men, reflecting ongoing gender disparities in part-time employment. 
-
+@fig-part-time highlights the number of men and women engaged in part-time work from 1972 to 2022, showcasing evolving trends in part-time employment, with a noticeable gender dimension. In 1972, part-time work was more common among women (73) than men (41), a trend that persisted and widened over the decades. The gap between male and female part-time workers expanded, with women consistently outnumbering men in part-time positions. Notably, the data illustrates a significant jump in both men and women working part-time in 1994, suggesting a shift in employment patterns or economic conditions that increased part-time work availability or necessity. The recession of 1990 @gardner19941990, despite officially ending in March 1991, left lasting impacts on the labor market, including higher unemployment rates and slower job growth recovery. This economic environment likely forced many workers to accept part-time positions due to the scarcity of full-time jobs or the need for employers to cut costs and reduce full-time staff. As a result, the increased part-time work during this period could reflect the lingering effects of the recession on employment opportunities. By 2022, the number of women working part-time reached 219, compared to 126 men, reflecting ongoing gender disparities in part-time employment.
 ```{r}
 #| label: fig-unemployed
 #| fig-cap: Unemployed Work Status by Gender Over Time
@@ -181,7 +180,7 @@ ggplot(u_data) +
   theme_minimal()
 ```
 
-@fig-unemployed captures the number of unemployed men and women from 1972 to 2022, providing insightful trends into the dynamics of unemployment across genders over five decades. In 1972, the dataset begins with 42 unemployed men compared to 8 unemployed women, indicating a higher male unemployment in absolute numbers. Over the years, both genders experienced fluctuations in unemployment, with notable increases during economic downturns. A significant spike in unemployment for both genders is observed in 2021, with 181 men and 150 women reported as unemployed, possibly reflecting the economic impacts of global events or shifts in the labor market. While the gap between unemployed men and women has varied, the year 2021 shows a notably smaller difference, suggesting a convergence in unemployment rates between genders.
+@fig-unemployed captures the number of unemployed men and women from 1972 to 2022, providing insightful trends into the dynamics of unemployment across genders over five decades. In 1972, the dataset begins with 42 unemployed men compared to 8 unemployed women, indicating a higher male unemployment in absolute numbers. Over the years, both genders experienced fluctuations in unemployment, with notable increases during economic downturns. A significant spike in unemployment for both genders is observed in 2021, with 181 men and 150 women reported as unemployed, possibly reflecting the economic impacts of global events or shifts in the labor market. While the gap between unemployed men and women has varied, the year 2021 shows a notably smaller difference, suggesting a convergence in unemployment rates between genders. This convergence can largely be attributed to the COVID-19 pandemic, which caused widespread economic disruptions, leading to job losses across various sectors. The pandemic's impact was indiscriminate, affecting industries traditionally dominated by either gender, hence the observed spike in unemployment figures for both men and women @blustein2020unemployment. Additionally, the pandemic-induced shift to remote work and the significant impact on service-oriented sectors, where women are overrepresented, further explain the observed trends in unemployment rates @grover2023gendered.
 
 ## Survey Methodology
 
@@ -204,7 +203,7 @@ From searching and filtering through different variables within the GSS, we were
 ## Biases against hiring women
 ```{r}
 #| label: fig-prefhiring
-#| fig-cap: Opinions on Preferential Hiring Over Time
+#| fig-cap: Opinions on Hiring Women Over Time
 #| echo: false
 #| warning: false
 #| message: false
@@ -232,7 +231,7 @@ ggplot(data_long, aes(x = Year, y = Count, fill = Category)) +
 
 ```
 
-@fig-prefhiring captures public opinion on hiring preferences across four categories: "Strongly favor," "Not strongly favor," "Not strongly oppose," and "Strongly oppose" from 1996 to 2006. The data reveals a fluctuating yet insightful perspective on preferences towards hiring practices over the years. In 1996, 139 individuals strongly favored certain hiring preferences, while a significant 453 strongly opposed them, indicating a polarized view on the matter. Over the following years, the number of people strongly favoring hiring preferences sees variation, peaking in 2006 with 204 individuals. Conversely, the "Strongly oppose" category also witnesses fluctuations, decreasing to 320 in 2000, then varying in subsequent years, and peaking again at 372 in 2006.
+@fig-prefhiring presents a nuanced view of public opinion from 1996 to 2006. In 1996, a substantial portion of respondents (453) strongly opposed preferential hiring and promotion of women, significantly outnumbering those who strongly favored it (139). This opposition saw a notable decrease by 2000, with strong opposition dropping to 320 and strong support increasing to 158, indicating a shift towards more favorable views on gender-based preferential hiring. However, the year 2006 saw the highest support for preferential hiring, with 204 respondents strongly favoring it, despite a resurgence in strong opposition to 372. Throughout this period, attitudes fluctuated, reflecting ongoing debates such as @langhorne2004grutter, and changing perspectives on gender equality and affirmative action in the workplace.
 
 ```{r}
 #| label: fig-fehire
@@ -271,7 +270,7 @@ ggplot(fehire_data_long, aes(x = year, y = Count, group = Response, color = Resp
 ```
 
 ## Attitudes Towards Hiring and Promoting Women
-@fig-fehire describes the GSS data on attitudes towards hiring and promoting women ("FEHIRE") from 1996 to 2022, showing a progressive shift towards more positive attitudes. The proportion of respondents strongly agreeing with the need to hire and promote women has seen a significant increase, particularly noticeable in the year 2021, where 620 respondents strongly agreed, compared to 244 in 1996. This trend suggests a growing consensus on the importance of gender equality in the workplace over the analyzed period. Despite this positive shift, there remains a consistent portion of respondents who disagree to varying degrees, highlighting that there is still work to be done to achieve universal acceptance of this principle.
+@fig-fehire describes the GSS data on attitudes towards hiring and promoting women from 1996 to 2022, showing a progressive shift towards more positive attitudes. The proportion of respondents strongly agreeing with the need to hire and promote women has seen a significant increase, particularly noticeable in the year 2021, where 620 respondents strongly agreed, compared to 244 in 1996. This trend mirrors a growing consensus on the importance of gender equality in the workplace described by @eagly2020gender, as gender stereotypes have changed. Despite this positive shift, there remains a consistent portion of respondents who disagree to varying degrees, highlighting that there is still work to be done to achieve universal acceptance of this principle.
 
 ```{r}
 #| label: fig-fefam
@@ -309,7 +308,7 @@ ggplot(fefam_data_long, aes(x = year, y = count, group = `Responses`, color = `R
 ```
 
 ## Views on Gender Roles in Work and Family Life
-@fig-fefam describes the survey responses to "FEFAM," concerning the belief that it's better for men to work and women to tend to the home, showing significant changes from 1977 to 2022. Early in the survey period, a substantial number of respondents agreed with traditional gender roles. Over time, there's been a notable shift towards disagreement with this view, especially strong in the 2021 data, where 1,146 strongly disagreed. This evolution reflects broader societal changes towards gender roles within family and work life, emphasizing a move towards more egalitarian views.
+@fig-fefam describes the survey responses concerning the belief that it's better for men to work and women to tend to the home, showing significant changes from 1977 to 2022. Early in the survey period, a substantial number of respondents agreed with traditional gender roles. Over time, there's been a notable shift towards disagreement with this view, especially strong in the 2021 data, where 1,146 strongly disagreed. This evolution reflects broader societal changes discussed by @boehnke2011gender towards gender roles within family and work life, emphasizing a move towards more egalitarian views.
 
 ```{r}
 #| label: fig-discaffw
@@ -348,7 +347,7 @@ ggplot(discaffw_data_long, aes(x = year, y = Count, group = Response, color = Re
 ```
 
 ## Perceptions of Discrimination Against Women in Job Promotions
-@fig-discaffw describes data on perceptions of discrimination against women in job promotions ("DISCAFFW") from 1996 to 2022, also indicating evolving public opinion. While the early years showed a more divided view on the likelihood of a woman not getting a job or promotion due to discrimination, there is a noticeable decline in the percentage of respondents who find it "very likely" or "somewhat likely." However, the absence of data in 2021 for this variable suggests a gap in understanding public opinion for that year. The overall trend suggests an increasing awareness and potentially decreasing concern over direct discrimination as a barrier to women's career advancement, though substantial concern remains.
+@fig-discaffw describes data on perceptions of discrimination against women in job promotions from 1996 to 2022, also indicating evolving public opinion. While the early years showed a more divided view on the likelihood of a woman not getting a job or promotion due to discrimination, there is a noticeable decline in the percentage of respondents who find it "very likely" or "somewhat likely." However, The lack of data for 2021 regarding this variable can likely be attributed to the disruptions caused by the COVID-19 pandemic. The overall trend suggests an increasing awareness and potentially decreasing concern over direct discrimination as a barrier to women's career advancement, though substantial concern remains.
 
 ```{r}
 #| label: fig-education
@@ -386,7 +385,7 @@ ggplot(education_data_long, aes(x = year, y = Count, group = `Education Level`, 
 ```
 
 ## Educational Attainment by Gender
-@fig-education shows the GSS data on educational attainment, segmented by gender from 1972 to 2022, revealing trends in the pursuit and achievement of higher education. Both males and females have shown increased attainment of bachelor's and graduate degrees over time. Notably, the gap in educational attainment between males and females has narrowed, with women showing significant gains in both bachelor's and graduate degrees, especially highlighted in the 2021 data. This trend underscores the increasing value placed on education for all individuals, regardless of gender, and reflects the broader societal shifts towards gender equality in education.
+@fig-education shows the GSS data on educational attainment, segmented by gender from 1972 to 2022, revealing trends in the pursuit and achievement of higher education. Both males and females have shown increased attainment of bachelor's and graduate degrees over time. Notably, the gap in educational attainment between males and females has narrowed, with women showing significant gains in both bachelor's and graduate degrees, especially highlighted in the 2021 data. An article by @albert2021labor underscores the increasing value placed on education for all individuals, regardless of gender, as increasing competition in the job market has further propelled these changes in educational attainment. As the workforce becomes more diverse and competitive, individuals recognize the necessity of higher education to stand out and secure employment opportunities. This competition has especially motivated women to pursue higher degrees, contributing to their significant gains in educational attainment found in the data.
 
 ```{r}
 #| label: fig-eduTojob
@@ -416,11 +415,7 @@ ggplot(combined_data, aes(x = as.numeric(as.character(year)), y = Count, color =
 ```
 
 ## Educational Attainment and Full-Time Work
-@fig-eduTojob reveals a significant upward trend in the number of women engaged in full-time employment over the years. Starting from 191 women in 1972, the numbers generally increased, peaking at 963 women in full-time work in 2006, before experiencing fluctuations and settling at 728 in 2022. This progression underscores the growing integration of women into the workforce and the breaking down of traditional gender roles that confined women to domestic responsibilities. The notable peak in 2006 could be indicative of economic, social, and legislative changes that encouraged or necessitated higher female participation in the workforce.
-
-Parallel to the rise in full-time employment, @fig-eduTojob also highlights significant strides in women's educational attainment. The data tracks the number of women who have achieved bachelor's and graduate degrees from 1972 through 2022. In 1972, 45 women held bachelor's degrees and 10 held graduate degrees. By 2022, these numbers had surged to 353 for bachelor's degrees and 228 for graduate degrees, reflecting a substantial increase in higher education attainment among women.
-
-This trend not only demonstrates the shifting societal expectations and the dismantling of barriers to women's education but also aligns with the increased demand for higher education in a knowledge-driven economy. The remarkable increase in graduate degrees highlights the progress toward gender parity in advanced education levels, potentially contributing to narrowing the gender gap in professional and academic fields.
+@fig-eduTojob reveals a significant upward trend in the number of women engaged in full-time employment over the years, parallel to the rise of educational attainment. The data describes a correlation between the number of women who have achieved bachelor's and graduate degrees and the number of women working full-time from 1972 through 2022. This trend not only demonstrates the shifting societal expectations and the dismantling of barriers to women's education but also aligns with the increased demand for higher education in a knowledge-driven economy. These findings mirror @yousefy2011women, which revealed that women with degrees at higher educational levels enjoyed better job positions. It was also found out that higher education plays a key role in employment and promotion of women in their working life.
 
 
 # Discussion {#sec-discussion}
