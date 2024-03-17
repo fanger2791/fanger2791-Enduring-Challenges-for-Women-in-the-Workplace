@@ -389,7 +389,7 @@ education_data_long <- education_data |>
 # education line graph
 ggplot(education_data_long, aes(x = year, y = Count, group = `Education Level`, color = `Education Level`)) +
   geom_line() +
-  labs(title = "Education Levels Over Time",
+  labs(title = "Education Levels Between Men and Women",
        x = "Year",
        y = "Count",
        color = "Education Level") +
@@ -397,7 +397,7 @@ ggplot(education_data_long, aes(x = year, y = Count, group = `Education Level`, 
 ```
 
 ## Educational Attainment by Gender
-@fig-education shows the GSS data on educational attainment, segmented by gender from 1972 to 2022, revealing trends in the pursuit and achievement of higher education. Both males and females have shown increased attainment of bachelor's and graduate degrees over time. Notably, the gap in educational attainment between males and females has narrowed, with women showing significant gains in both bachelor's and graduate degrees, especially highlighted in the 2021 data. An article by @albert2021labor underscores the increasing value placed on education for all individuals, regardless of gender, as increasing competition in the job market has further propelled these changes in educational attainment. As the workforce becomes more diverse and competitive, individuals recognize the necessity of higher education to stand out and secure employment opportunities. This competition has especially motivated women to pursue higher degrees, contributing to their significant gains in educational attainment found in the data.
+@fig-education shows the GSS data on educational attainment, segmented by gender from 1972 to 2022, revealing trends in the pursuit and achievement of higher education. Both males and females have shown increased attainment of bachelor's and graduate degrees over time. Notably, the gap in educational attainment between males and females has narrowed, with women showing significant gains in both bachelor's and graduate degrees, especially highlighted in the 2021 data. An article by @albert2021labor underscores this increasing value placed on education for all individuals, regardless of gender, as increasing competition in the job market has further propelled these changes in educational attainment. As the workforce becomes more diverse and competitive, individuals recognize the necessity of higher education to stand out and secure employment opportunities. This competition has especially motivated women to pursue higher degrees, contributing to their significant gains in educational attainment found in the data.
 
 ```{r}
 #| label: fig-eduTojob
