@@ -244,6 +244,7 @@ library(tidyverse)
 library(ggplot2)
 library(readxl)
 library(tidyr)
+library(stringr)
 
 # read in data
 fehire_data <- read_csv("../data/analysis_data/fehire_data.csv")
@@ -256,13 +257,15 @@ fehire_data_long <- fehire_data |>
   pivot_longer(cols = c(strongly_agree, agree, disagree, strongly_disagree),
                names_to = "Response",
                values_to = "Count") |>
-  mutate(Count = as.numeric(Count))
+  mutate(Count = as.numeric(Count), 
+         `Response` = str_replace_all(`Response`, "_", " "),
+         `Response` = tools::toTitleCase(`Response`))
 
 # fehire line graph
 ggplot(fehire_data_long, aes(x = year, y = Count, group = Response, color = Response)) +
   geom_line() +
   scale_y_continuous(limits = c(0, 1000)) +
-  labs(title = "Fehire Responses Over Time",
+  labs(title = "Hiring and Promoting Women: Survey Responses Over Time",
        x = "Year",
        y = "Count",
        color = "Response Category") +
@@ -270,7 +273,7 @@ ggplot(fehire_data_long, aes(x = year, y = Count, group = Response, color = Resp
 ```
 
 ## Attitudes Towards Hiring and Promoting Women
-@fig-fehire describes the GSS data on attitudes towards hiring and promoting women from 1996 to 2022, showing a progressive shift towards more positive attitudes. The proportion of respondents strongly agreeing with the need to hire and promote women has seen a significant increase, particularly noticeable in the year 2021, where 620 respondents strongly agreed, compared to 244 in 1996. This trend mirrors a growing consensus on the importance of gender equality in the workplace described by @eagly2020gender, as gender stereotypes have changed. Despite this positive shift, there remains a consistent portion of respondents who disagree to varying degrees, highlighting that there is still work to be done to achieve universal acceptance of this principle.
+@fig-fehire describes the attitudes towards hiring and promoting women from 1996 to 2022, showing a progressive shift towards more positive attitudes. The proportion of respondents strongly agreeing with the need to hire and promote women has seen a significant increase, particularly noticeable in the year 2021, where 620 respondents strongly agreed, compared to 244 in 1996. This trend mirrors a growing consensus on the importance of gender equality in the workplace described by @eagly2020gender, as gender stereotypes have changed. Despite this positive shift, there remains a consistent portion of respondents who disagree to varying degrees, highlighting that there is still work to be done to achieve universal acceptance of this principle.
 
 ```{r}
 #| label: fig-fefam
@@ -283,6 +286,7 @@ library(tidyverse)
 library(ggplot2)
 library(readxl)
 library(tidyr)
+library(stringr)
 
 # read in data
 fefam_data <- read_csv("../data/analysis_data/fefam_data.csv")
@@ -295,7 +299,9 @@ fefam_data_long <- fefam_data |>
   pivot_longer(cols = c(strongly_agree, agree, disagree, strongly_disagree),
                names_to = "Responses",
                values_to = "count") |>
-  mutate(count = as.numeric(count))
+  mutate(count = as.numeric(count), 
+         `Responses` = str_replace_all(`Responses`, "_", " "),
+         `Responses` = tools::toTitleCase(`Responses`))
 
 # fefam line graph
 ggplot(fefam_data_long, aes(x = year, y = count, group = `Responses`, color = `Responses`)) +
@@ -312,7 +318,7 @@ ggplot(fefam_data_long, aes(x = year, y = count, group = `Responses`, color = `R
 
 ```{r}
 #| label: fig-discaffw
-#| fig-cap: Perceptions of Discrimination Against Women in Job Promotions
+#| fig-cap: Perceptions of c in Job Promotions
 #| echo: false
 #| warning: false
 #| message: false
@@ -321,6 +327,7 @@ library(tidyverse)
 library(ggplot2)
 library(readxl)
 library(tidyr)
+library(stringr)
 
 # read in data
 discaffw_data <- read_csv("../data/analysis_data/discaffw_data.csv")
@@ -333,13 +340,15 @@ discaffw_data_long <- discaffw_data |>
   pivot_longer(cols = c(very_likely, somewhat_likely, somewhat_unlikely, very_unlikely),
                names_to = "Response",
                values_to = "Count") |>
-  mutate(Count = as.numeric(Count))
+  mutate(Count = as.numeric(Count), 
+         `Response` = str_replace_all(`Response`, "_", " "),
+         `Response` = tools::toTitleCase(`Response`))
 
 # discaffw line graph
 ggplot(discaffw_data_long, aes(x = year, y = Count, group = Response, color = Response)) +
   geom_line() +
   scale_y_continuous(limits = c(0, 700)) +
-  labs(title = "Discaffw Responses Over Time",
+  labs(title = "Discrimination Against Women: Survey Responses",
        x = "Year",
        y = "Count",
        color = "Response Category") +
@@ -360,6 +369,7 @@ library(tidyverse)
 library(ggplot2)
 library(readxl)
 library(tidyr)
+library(stringr)
 
 # read in data
 education_data <- read_csv("../data/analysis_data/education_data.csv")
@@ -372,7 +382,9 @@ education_data_long <- education_data |>
   pivot_longer(cols = c(less_than_highschool, high_school, junior_college, bachelor, graduate),
                names_to = "Education Level",
                values_to = "Count") |>
-  mutate(Count = as.numeric(Count))
+  mutate(Count = as.numeric(Count), 
+         `Education Level` = str_replace_all(`Education Level`, "_", " "),
+         `Education Level` = tools::toTitleCase(`Education Level`))
 
 # education line graph
 ggplot(education_data_long, aes(x = year, y = Count, group = `Education Level`, color = `Education Level`)) +
@@ -406,7 +418,7 @@ combined_data <- read_csv("../data/analysis_data/combined_data.csv")
 ggplot(combined_data, aes(x = as.numeric(as.character(year)), y = Count, color = category, group = category)) +
   geom_line() +
   scale_y_continuous(name = "Count", limits = c(0, 1000)) +
-  labs(title = "Comparison of Full-Time Work for Women with Higher Education Levels",
+  labs(title = "Women's Full-Time Work and Higher Education Levels",
        x = "Year",
        y = "Count",
        color = "Category") +
