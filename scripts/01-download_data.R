@@ -1,26 +1,27 @@
 #### Preamble ####
-# Purpose: Downloads and saves the data from [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Instructions on how to acquire the data from U.S. GSS
+# Author: David James Dimalanta, Harrison Huang, Michael Fang
+# Date: 8 March 2024
+# Contact: david.dimalanta@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
-
-
-#### Workspace setup ####
-library(opendatatoronto)
-library(tidyverse)
-# [...UPDATE THIS...]
 
 #### Download data ####
-# [...ADD CODE HERE TO DOWNLOAD...]
 
+# Due to licensing and copyright restrictions, we are unable to provide a direct link to download the data from the General Social Survey (GSS) but we will provide steps on how to aquire the date yourself
 
+# First, visit the GSS website at https://gss.norc.org/Get-The-Data
+# Then, to download the GSS data, you may be required to register for an account.
+# Once registered, you are able to view different variables withing the GSS Data
+# Please see the varaibles we used below:
 
-#### Save data ####
-# [...UPDATE THIS...]
-# change the_raw_data to whatever name you assigned when you downloaded it.
-write_csv(the_raw_data, "inputs/data/raw_data.csv") 
+#Year
+#Wrkstat: labor force status
+#Sex: respondents sex
+#Educ: highest year of school completed
+#Fejobaff: for or against preferential hiring of women 
+#Fehire: Should hire and promote women 
+#Fefam: better for man to work, woman tend home 
+#Discaffw: a woman won't get a job or promotion 
 
+# You can then use these variables to then tabulate the data to create datasets that can be used for the next steps
          
