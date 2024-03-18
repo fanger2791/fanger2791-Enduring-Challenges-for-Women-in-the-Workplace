@@ -15,7 +15,7 @@ The repo is structured as:
 
 ## How to Run and Reproduce
 
-1. Run `scripts/download_data.R` to download the raw data. It will state that downloading the Raw data must be done through GSS and must be tabulated using the variables stated in the paper. The link to the GSS can be found at this URL:
+1. Run `scripts/download_data.R` to download the raw data. It will state instrusctions about downloading the Raw data must be done through GSS and must be tabulated using the variables stated in the paper. The link to the GSS can be found at this URL:
 
 https://gss.norc.org/Get-The-Data
 
