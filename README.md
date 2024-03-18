@@ -9,9 +9,10 @@ that investigates the evolving dynamics of the U.S. labor force, with a particul
 
 The repo is structured as:
 
-- data contains the cleaned dataset that was constructed and data sources used in analysis including the raw data
-- paper contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper.
-- scripts contains the R scripts used to simulate, download, and clean data.
+- `data` contains the cleaned dataset that was constructed and data sources used in analysis including the raw data
+- `paper` contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper.
+- `other` contains the sketches that were used in the ideation phase and llm usage statement
+- `scripts` contains the R scripts used to simulate, download, and clean data.
 
 ## How to Run and Reproduce
 
