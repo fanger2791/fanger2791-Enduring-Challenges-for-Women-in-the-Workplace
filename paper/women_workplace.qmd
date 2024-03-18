@@ -1,0 +1,570 @@
+---
+title: "Evolving Dynamics: The U.S. Labor Force from 1972 to 2022"
+subtitle: "The Enduring Challenges for Women in the Workplace"
+author: 
+  - Michael Fang
+  - Harrison Huang
+  - David James Dimalanta
+thanks: "Code and data are available at: https://github.com/fanger2791/fanger2791-Women-in-the-Workplace"
+date: today
+date-format: long
+abstract: "As the U.S. labor force has evolved over the last fifty years, women have made significant strides but still face many obstacles on their path to equality in the workplace. This paper investigates the evolving dynamics of the U.S. labor force from 1972 to 2022, with a particular focus on women's experiences in the workplace, utilizing data from the U.S. General Social Survey (GSS). Our analysis reveals significant changes in workforce participation and the professional landscape for women over five decades, marked by increased participation rates and educational attainment. However, it also uncovers the persistent challenges women face, such as underrepresentation in leadership, and the work-family balance juggle. These findings underscore the importance of an intersectional approach in understanding and addressing the challenges women encounter in the labor market. The paper highlights the strides made towards gender equality in the workplace over the years, yet points to the deep-rooted barriers that remain, offering insights into the diversity of women's experiences within the workforce."
+format: pdf
+number-sections: true
+toc: true
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+### Workspace Setup ###
+library(dplyr)
+library(tidyverse)
+library(knitr)
+library(janitor)
+library(lubridate)
+library(readr)
+library(ggplot2)
+```
+
+
+# Introduction
+
+Over the past fifty years, the U.S. labor force has undergone significant transformations, reflecting broader socio-economic shifts, technological advancements, and changing demographic patterns. These changes have had profound implications for employment practices, workplace cultures, and the economic opportunities available to different segments of the population. However, despite these overall shifts, women in the workforce have continued to face enduring challenges, including gender pay gaps, underrepresentation in leadership positions, and the persistent juggling act of work-family balance [@leadership_women]. This paper examines the evolving dynamics of the U.S. labor force from 1972 to 2022, focusing on how these broader changes have intersected with the experiences of women in the workplace.
+
+As we focus on the exploration of labor force trends with an examination of the specific, ongoing challenges that women encounter in the workplace, we will touch on how our investigation seeks to bridge the gap on general labor trends and women's workplace challenges by employing data from the U.S. General Social Survey (GSS) [@GSS]. This allows us to dissect how five decades of labor market evolution have sculpted the professional landscape for women. We aim to uncover the intricate ways in which shifts in the labor force have impacted women's experiences in the workforce.
+
+The U.S. General Social Survey (GSS) [@GSS] has been a pivotal source of data, employing a sampling approach to ensure representative insights into the American public's attitudes, behaviors, and attributes since 1972. This methodology involves selecting participants to mirror the U.S. population's demographic makeup, including variations by region, age, gender, and socio-economic status. Notably, the GSS adapted its data collection methods in response to the COVID-19 pandemic, transitioning to online and phone surveys to maintain participant safety and response rates. These adjustments, while necessary, introduced potential implications for trend analysis, including variations in response rates and the potential for digital access disparities. Despite these challenges, our analysis of the GSS data reveals striking findings. For instance, from 1972 to 2022, women's participation in the workforce increased significantly. Initially, the workforce was predominantly male, with 570 men working full time compared to 191 women in 1972 but by 2022, the number of women working full-time had increased to 728 from 191 in 1972, showing substantial progress towards gender equality in the workplace. However, the persistence of work-family balance challenges is evident, underscoring the ongoing struggle to integrate professional and personal responsibilities. This paper will reveal that despite an increase in participation rates and educational attainment among women, numerous deep-rooted barriers persist. Crucially, this paper highlights the diversity of women's experiences in the labor market, underscoring the importance of an intersectional approach to understanding workplace challenges.
+
+The paper is organized as follows: Section two @sec-data details the methodology and source data, including the use of GSS data. Section three @sec-results provides an analysis of labor force trends over the past fifty years, with an emphasis on changes in employment patterns, workforce participation, and educational attainment among women. Section four @sec-discussion delves into the specific challenges women face in the workplace, utilizing quantitative data from the GSS and discusses the broader implications of these findings, offering targeted recommendations for policy and practice to address gender disparities.
+
+
+# Data {#sec-data}
+
+Data used in this paper are retrieved from the U.S. General Social Survey (GSS) [@GSS].
+The General Social Survey (GSS) is an ongoing interview survey of U.S. households conducted by the National Opinion Research Center. It has provided a wealth of data on contemporary American society for approximately 35 years by measuring social change and trends and constants in the adult population's attitudes, behaviors, and attributes. It includes a questionnaire such as demographics, attitudes, and ideas towards certain beliefs, and even extends economic ideologies such as spending priorities. The goal is to have high-quality data available to social scientists and researchers. Over the years, the GSS has worked continuously to make the survey better. One major improvement worthy of mentioning is the addition of a Spanish version, since there is a big demographic of the U.S. that speaks Spanish, this would provide a significant increase in the coverage of U.S. household responses.
+
+## Source Data
+
+For Demographic data, we obtained the following data, shown in @tbl-demographic. The "Wrkstat" variable captures the labor force status of the respondents, detailing whether individuals are employed full time, employed part time, or unemployed. This variable is crucial for understanding the employment landscape and analyzing trends related to workforce participation and unemployment rates. The "Sex" variable is essential for examining gender disparities across different spheres, including the workplace and education. The "Educ" variable records the highest year of school completed by respondents, serving as a key indicator of educational attainment. 
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| label: tbl-demographic
+#| tbl-cap: Demographic Data from U.S GSS
+library(tidyverse)
+library(kableExtra)
+
+demo_data <- data.frame( 
+  Variable = c("Sex", 
+               "Wrkstat", 
+               "Educ"), 
+  Description = c("Respondent's Gender", 
+                  "Labor force status",
+                  "Highest year of school completed"), 
+  ExampleResponse = c("Female", 
+                      "Working Full Time", 
+                      "Bachelor's")
+)
+demo_data |>
+ slice(1:10) |>
+  kable(digits = 1,
+    booktabs = TRUE,
+    linesep = ""
+  )
+```
+
+For Workforce Survey data, we obtained the following data, shown in @tbl-womenworkforce. These questions, such as those on hiring women and promotion of women (Fejobaff), the necessity of hiring and promoting women (Fehire), traditional family roles (Fefam), and perceptions of workplace discrimination against women (Discaffw), collectively paint a detailed picture of societal views on gender equity and affirmative action. Together, these variables from the GSS provide invaluable insights into the complex dynamics of gender equality and discrimination in the American workplace.
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| label: tbl-womenworkforce
+#| tbl-cap: Women in the workforce survey data
+library(tidyverse)
+library(kableExtra)
+
+variable_data <- data.frame( 
+  Variable = c("Fejobaff", 
+               "Fehire", 
+               "Fefam",
+               "Discaffw"), 
+  Description = c("For or against hiring women of                       women",
+                  "Should hire and promote women",
+                  "Is it better for man to work, and a woman                    to tend home", 
+                  "A woman won't get a job or promotion"), 
+  ExampleResponse = c("Strongly Favor", 
+              "Disagree", 
+              "Agree",
+              "Somewhat likely")
+)
+variable_data |>
+ slice(1:10) |>
+  kable(digits = 1,
+    booktabs = TRUE,
+    linesep = ""
+  )
+```
+
+## Respondent Labour Status
+
+```{r}
+#| label: fig-fulltime
+#| fig-cap: Full Time Work Status by Gender Over Time
+#| echo: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+
+ft_data <- read_csv("../data/analysis_data/full_time_data.csv")
+
+ggplot(ft_data) +
+  geom_line(aes(x = year, y = men, color = "Men")) +
+  geom_line(aes(x = year, y = women, color = "Women")) +
+  scale_color_manual(values = c("Men" = "blue", "Women" = "pink")) +
+  labs(
+       x = "Year",
+       y = "Number of People",
+       color = "Gender") +
+  theme_minimal()
+```
+
+@fig-fulltime shows the number of men and women working full-time from 1972 to 2022, revealing significant trends in labor force participation by gender over five decades. Initially, the workforce was predominantly male, with 570 men working full time compared to 191 women in 1972. Over the years, a steady increase in the number of women working full-time is observed, narrowing the gender gap in full-time employment. By 2022, the number of women working full-time had increased to 728 from 191 in 1972, showing substantial progress towards gender equality in the workplace. The most remarkable year-over-year growth was seen between 1993 and 1994, from 329 to 690, a surge that can be partly attributed to the enactment of the Family and Medical Leave Act (FMLA) of 1993 @fmla1993. This landmark legislation allowed employees to take up to 12 weeks of unpaid, job-protected leave for family and medical reasons, including childbirth, adoption, or the care of a close family member with a serious health condition, without fear of losing their jobs.
+
+```{r}
+#| label: fig-part-time
+#| fig-cap: Part Time Work Status by Gender Over Time
+#| echo: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+
+pt_data <- read_csv("../data/analysis_data/part_time_data.csv")
+
+ggplot(pt_data) +
+  geom_line(aes(x = year, y = men, color = "Men")) +
+  geom_line(aes(x = year, y = women, color = "Women")) +
+  scale_color_manual(values = c("Men" = "blue", "Women" = "pink")) +
+  labs(
+       x = "Year",
+       y = "Number of People",
+       color = "Gender") +
+  theme_minimal()
+```
+
+@fig-part-time highlights the number of men and women engaged in part-time work from 1972 to 2022, showcasing evolving trends in part-time employment, with a noticeable gender dimension. In 1972, part-time work was more common among women (73) than men (41), a trend that persisted and widened over the decades. The gap between male and female part-time workers expanded, with women consistently outnumbering men in part-time positions. Notably, the data illustrates a significant jump in both men and women working part-time in 1994, suggesting a shift in employment patterns or economic conditions that increased part-time work availability or necessity. The recession of 1990 @gardner19941990, despite officially ending in March 1991, left lasting impacts on the labor market, including higher unemployment rates and slower job growth recovery. This economic environment likely forced many workers to accept part-time positions due to the scarcity of full-time jobs or the need for employers to cut costs and reduce full-time staff. As a result, the increased part-time work during this period could reflect the lingering effects of the recession on employment opportunities. By 2022, the number of women working part-time reached 219, compared to 126 men, reflecting ongoing gender disparities in part-time employment.
+```{r}
+#| label: fig-unemployed
+#| fig-cap: Unemployed Work Status by Gender Over Time
+#| echo: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+
+u_data <- read_csv("../data/analysis_data/unemployed_data.csv")
+
+ggplot(u_data) +
+  geom_line(aes(x = year, y = men, color = "Men")) +
+  geom_line(aes(x = year, y = women, color = "Women")) +
+  scale_color_manual(values = c("Men" = "blue", "Women" = "pink")) +
+  labs(
+       x = "Year",
+       y = "Number of People",
+       color = "Gender") +
+  theme_minimal()
+```
+
+@fig-unemployed captures the number of unemployed men and women from 1972 to 2022, providing insightful trends into the dynamics of unemployment across genders over five decades. In 1972, the dataset begins with 42 unemployed men compared to 8 unemployed women, indicating a higher male unemployment in absolute numbers. Over the years, both genders experienced fluctuations in unemployment, with notable increases during economic downturns. A significant spike in unemployment for both genders is observed in 2021, with 181 men and 150 women reported as unemployed, possibly reflecting the economic impacts of global events or shifts in the labor market. While the gap between unemployed men and women has varied, the year 2021 shows a notably smaller difference, suggesting a convergence in unemployment rates between genders. This convergence can largely be attributed to the COVID-19 pandemic, which caused widespread economic disruptions, leading to job losses across various sectors. The pandemic's impact was indiscriminate, affecting industries traditionally dominated by either gender, hence the observed spike in unemployment figures for both men and women @blustein2020unemployment. Additionally, the pandemic-induced shift to remote work and the significant impact on service-oriented sectors, where women are overrepresented, further explain the observed trends in unemployment rates @grover2023gendered.
+
+## Survey Methodology
+
+The survey methodology of the U.S. General Social Survey (GSS) employs a rigorous and systematic approach to collecting data that accurately reflects the attitudes, behaviors, and demographics of the United States population. Central to its methodology is the use of a stratified sampling technique, which ensures that various segments of the population are represented proportionately. This involves dividing the population into strata—such as geographic regions, age groups, gender, and racial or ethnic categories—and then randomly selecting participants from each stratum to achieve a sample that mirrors the broader population's characteristics. To maintain the integrity and reliability of the data, the GSS also adheres to strict protocols for questionnaire design, testing, and administration, incorporating both established and new questions to capture evolving social trends and issues. Interviews are conducted face-to-face or via telephone by trained interviewers, ensuring that responses are collected in a consistent and unbiased manner. Over the years, the GSS has adapted its methodologies to address challenges such as declining response rates and the advent of new technologies, including moving towards mixed-mode data collection strategies that may incorporate online surveys. The data collection process is underpinned by a commitment to ethical standards, protecting the privacy and confidentiality of respondents. The meticulous survey methodology of the GSS ensures the production of high-quality, reliable data, making it an invaluable resource for researchers, policymakers, and social scientists seeking to understand the complex fabric of American society.
+
+## Data Limitations
+
+The COVID-19 pandemic posed unprecedented challenges to data collection efforts, including those of the General Social Survey (GSS) [@GSS], necessitating significant adjustments in methodology that may impact the reliability and comparability of the data collected during this period. In response to social distancing guidelines, the GSS likely had to transition from traditional in-person interviews to remote data collection methods, such as online surveys or telephone interviews. While essential for public health, these shifts could introduce biases, particularly affecting response rates and the representativeness of certain demographic groups less comfortable or accessible via these technologies. The pandemic's uneven impact across various regions, economic statuses, and racial demographics further complicates sampling efforts, potentially skewing the sample composition.
+
+Moreover, the general upheaval caused by the pandemic—characterized by heightened levels of stress, health concerns, and economic instability—may have influenced individuals' willingness or capacity to participate in surveys, potentially leading to lower response rates and affecting the quality of responses. This variability complicates the task of comparing data collected during the pandemic with previous years, as the unique circumstances could significantly impact respondents' perceptions and experiences. Additionally, the GSS might not have been fully equipped to measure new phenomena introduced by the pandemic, such as the surge in remote work, limiting its ability to capture the full scope of COVID-19's impact on the labor force and, more specifically, on women's experiences within it.
+
+## Data Cleaning
+
+R [@citeR] was the language and environment used for this paper as well as throughout the data cleaning process, with different packages such as tidyverse [@tidyverse], ggplot2 [@ggplot2], dplyr [@dplyr], tidyr [@tidyr], knitr [@knitr], janitor [@janitor], lubridate [@lubridate] packages. 
+
+From searching and filtering through different variables within the GSS, we were able to tabulate different datasets. Through this tabulation process, we were able to examine which years had data and years that did not, which allowed us to remove the empty years from the dataset. 
+
+# Results {#sec-results}
+
+## Biases against hiring women
+```{r}
+#| label: fig-prefhiring
+#| fig-cap: Opinions on Hiring Women Over Time
+#| echo: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(readxl)
+library(tidyr)
+
+# Read the data from the Excel file
+h_data <- read_excel("../data/analysis_data/pref_hiring.xlsx")
+
+# Reshape the data to long format for easier plotting with ggplot2
+data_long <- pivot_longer(h_data, cols = -Year, names_to = "Category", values_to = "Count")
+
+# Plot
+ggplot(data_long, aes(x = Year, y = Count, fill = Category)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_minimal() +
+  labs(
+       x = "Year",
+       y = "Count") +
+  scale_fill_brewer(palette = "Set1") +
+  theme(legend.position = "bottom")
+
+```
+
+@fig-prefhiring presents a nuanced view of public opinion from 1996 to 2006. In 1996, a substantial portion of respondents (453) strongly opposed preferential hiring and promotion of women, significantly outnumbering those who strongly favored it (139). This opposition saw a notable decrease by 2000, with strong opposition dropping to 320 and strong support increasing to 158, indicating a shift towards more favorable views on gender-based preferential hiring. However, the year 2006 saw the highest support for preferential hiring, with 204 respondents strongly favoring it, despite a resurgence in strong opposition to 372. Throughout this period, attitudes fluctuated, reflecting ongoing debates such as @langhorne2004grutter, and changing perspectives on gender equality and affirmative action in the workplace.
+
+```{r}
+#| label: fig-fehire
+#| fig-cap: Attitudes Towards Hiring and Promoting Women
+#| echo: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(readxl)
+library(tidyr)
+library(stringr)
+
+# read in data
+fehire_data <- read_csv("../data/analysis_data/fehire_data.csv")
+
+# Format year data as numeric for line graphs
+fehire_data$year <- as.numeric(fehire_data$year)
+
+# Reshape the data to long format for line graphs and convert 'count' to numeric
+fehire_data_long <- fehire_data |>
+  pivot_longer(cols = c(strongly_agree, agree, disagree, strongly_disagree),
+               names_to = "Response",
+               values_to = "Count") |>
+  mutate(Count = as.numeric(Count), 
+         `Response` = str_replace_all(`Response`, "_", " "),
+         `Response` = tools::toTitleCase(`Response`))
+
+# fehire line graph
+ggplot(fehire_data_long, aes(x = year, y = Count, group = Response, color = Response)) +
+  geom_line() +
+  scale_y_continuous(limits = c(0, 1000)) +
+  labs(title = "Hiring and Promoting Women: Survey Responses Over Time",
+       x = "Year",
+       y = "Count",
+       color = "Response Category") +
+  theme_minimal()
+```
+
+## Attitudes Towards Hiring and Promoting Women
+@fig-fehire describes the attitudes towards hiring and promoting women from 1996 to 2022, showing a progressive shift towards more positive attitudes. The proportion of respondents strongly agreeing with the need to hire and promote women has seen a significant increase, particularly noticeable in the year 2021, where 620 respondents strongly agreed, compared to 244 in 1996. This trend mirrors a growing consensus on the importance of gender equality in the workplace described by @eagly2020gender, as gender stereotypes have changed. Despite this positive shift, there remains a consistent portion of respondents who disagree to varying degrees, highlighting that there is still work to be done to achieve universal acceptance of this principle.
+
+```{r}
+#| label: fig-fefam
+#| fig-cap: Views on Gender Roles in Work and Family Life
+#| echo: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(readxl)
+library(tidyr)
+library(stringr)
+
+# read in data
+fefam_data <- read_csv("../data/analysis_data/fefam_data.csv")
+
+# Format year data as numeric for line graphs
+fefam_data$year <- as.numeric(fefam_data$year)
+
+# Reshape the data to long format for line graphs and convert 'count' to numeric
+fefam_data_long <- fefam_data |>
+  pivot_longer(cols = c(strongly_agree, agree, disagree, strongly_disagree),
+               names_to = "Responses",
+               values_to = "count") |>
+  mutate(count = as.numeric(count), 
+         `Responses` = str_replace_all(`Responses`, "_", " "),
+         `Responses` = tools::toTitleCase(`Responses`))
+
+# fefam line graph
+ggplot(fefam_data_long, aes(x = year, y = count, group = `Responses`, color = `Responses`)) +
+  geom_line() +
+  scale_y_continuous(limits = c(0, 1200)) +
+  labs(title = "Responses to: better for man to work, woman tend home",
+       x = "Year",
+       y = "Count") +
+  theme_minimal()
+```
+
+## Views on Gender Roles in Work and Family Life
+@fig-fefam describes the survey responses concerning the belief that it's better for men to work and women to tend to the home, showing significant changes from 1977 to 2022. Early in the survey period, a substantial number of respondents agreed with traditional gender roles. Over time, there's been a notable shift towards disagreement with this view, especially strong in the 2021 data, where 1,146 strongly disagreed. This evolution reflects broader societal changes discussed by @boehnke2011gender towards gender roles within family and work life, emphasizing a move towards more egalitarian views.
+
+```{r}
+#| label: fig-discaffw
+#| fig-cap: Perceptions of Gendered Discrimination in Job Promotions
+#| echo: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(readxl)
+library(tidyr)
+library(stringr)
+
+# read in data
+discaffw_data <- read_csv("../data/analysis_data/discaffw_data.csv")
+
+# Format year data as numeric for line graphs
+discaffw_data$year <- as.numeric(discaffw_data$year)
+
+# Reshape the data to long format for line graphs and convert 'count' to numeric
+discaffw_data_long <- discaffw_data |>
+  pivot_longer(cols = c(very_likely, somewhat_likely, somewhat_unlikely, very_unlikely),
+               names_to = "Response",
+               values_to = "Count") |>
+  mutate(Count = as.numeric(Count), 
+         `Response` = str_replace_all(`Response`, "_", " "),
+         `Response` = tools::toTitleCase(`Response`))
+
+# discaffw line graph
+ggplot(discaffw_data_long, aes(x = year, y = Count, group = Response, color = Response)) +
+  geom_line() +
+  scale_y_continuous(limits = c(0, 700)) +
+  labs(title = "Discrimination Against Women: Survey Responses",
+       x = "Year",
+       y = "Count",
+       color = "Response Category") +
+  theme_minimal()
+```
+
+## Perceptions of Discrimination Against Women in Job Promotions
+@fig-discaffw describes data on perceptions of discrimination against women in job promotions from 1996 to 2022, also indicating evolving public opinion. While the early years showed a more divided view on the likelihood of a woman not getting a job or promotion due to discrimination, there is a noticeable decline in the percentage of respondents who find it "very likely" or "somewhat likely." However, The lack of data for 2021 regarding this variable can likely be attributed to the disruptions caused by the COVID-19 pandemic. The overall trend suggests an increasing awareness and potentially decreasing concern over direct discrimination as a barrier to women's career advancement, though substantial concern remains.
+
+```{r}
+#| label: fig-education
+#| fig-cap: Educational Attainment by Gender
+#| echo: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(readxl)
+library(tidyr)
+library(stringr)
+
+# read in data
+education_data <- read_csv("../data/analysis_data/education_data.csv")
+
+# Format year data as numeric for line graphs
+education_data$year <- as.numeric(education_data$year)
+
+# Reshape the data to long format for line graphs and convert 'count' to numeric
+education_data_long <- education_data |>
+  pivot_longer(cols = c(less_than_highschool, high_school, junior_college, bachelor, graduate),
+               names_to = "Education Level",
+               values_to = "Count") |>
+  mutate(Count = as.numeric(Count), 
+         `Education Level` = str_replace_all(`Education Level`, "_", " "),
+         `Education Level` = tools::toTitleCase(`Education Level`))
+
+# education line graph
+ggplot(education_data_long, aes(x = year, y = Count, group = `Education Level`, color = `Education Level`)) +
+  geom_line() +
+  labs(title = "Education Levels Between Men and Women",
+       x = "Year",
+       y = "Count",
+       color = "Education Level") +
+  theme_minimal()
+```
+
+## Educational Attainment by Gender
+@fig-education shows the GSS data on educational attainment, segmented by gender from 1972 to 2022, revealing trends in the pursuit and achievement of higher education. Both males and females have shown increased attainment of bachelor's and graduate degrees over time. Notably, the gap in educational attainment between males and females has narrowed, with women showing significant gains in both bachelor's and graduate degrees, especially highlighted in the 2021 data. An article by @albert2021labor underscores this increasing value placed on education for all individuals, regardless of gender, as increasing competition in the job market has further propelled these changes in educational attainment. As the workforce becomes more diverse and competitive, individuals recognize the necessity of higher education to stand out and secure employment opportunities. This competition has especially motivated women to pursue higher degrees, contributing to their significant gains in educational attainment found in the data.
+
+```{r}
+#| label: fig-eduTojob
+#| fig-cap: Trends in Full-Time Work and Educational Attainment for Women
+#| echo: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(readxl)
+library(tidyr)
+
+# read in data
+combined_data <- read_csv("../data/analysis_data/combined_data.csv")
+
+# combined education and full-time data in line graph
+ggplot(combined_data, aes(x = as.numeric(as.character(year)), y = Count, color = category, group = category)) +
+  geom_line() +
+  scale_y_continuous(name = "Count", limits = c(0, 1000)) +
+  labs(title = "Women's Full-Time Work and Higher Education Levels",
+       x = "Year",
+       y = "Count",
+       color = "Category") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Educational Attainment and Full-Time Work
+@fig-eduTojob reveals a significant upward trend in the number of women engaged in full-time employment over the years, parallel to the rise of educational attainment. The data describes a correlation between the number of women who have achieved bachelor's and graduate degrees and the number of women working full-time from 1972 through 2022. This trend not only demonstrates the shifting societal expectations and the dismantling of barriers to women's education but also aligns with the increased demand for higher education in a knowledge-driven economy. These findings mirror @yousefy2011women, which revealed that women with degrees at higher educational levels enjoyed better job positions. It was also found out that higher education plays a key role in employment and promotion of women in their working life.
+
+
+# Discussion {#sec-discussion}
+
+## Strengths of US GSS
+
+Interviews have been conducted with a total of 51,020 respondents. The 1972-74 surveys used modified probability designs and the remaining surveys were completed using a
+full-probability sample design, producing a high-quality, representative sample of the adult population of the U.S. The GSS has a response rate of over 70 percent above that of other major social science surveys and 40-45 percentage points higher than the industry average.
+
+## Potential Ethical and Bias Issues with Survey Methodology
+
+In the Fehelp variable, the question is framed as “It is more important for a wife to help her husband's career than to have one herself” and then participants are asked to respond from Strongly agree, agree, disagree, to disagree strongly. The main issue with these types of questions is the wording and the answer scales. This wordy question, could lose the reader or create misunderstanding. In a lengthy survey, it is very important to keep questions concise and straightforward. The question could be rephrased as: “Whose career is more important in a relationship?” and then the scale of wife and husband on a scale. This way it would not prompt the participant to think in any direction before actually answering the question thus reducing biases that might have occurred otherwise. Another thing worthy to mention is the percentage of participants in the actual population. Simply looking at the number of total respondents may seem very impressive, however when compared on a large scale, it is less than 0.0001% of the population. Since the percentage is so low, it is very difficult to make generalizations about the actual population like this. 
+
+## Potential Improvements 
+
+A potential improvement that could be implemented to improve the issues mentioned above is to update the questionnaires every year. Have a psychologist screen and update the questionnaires yearly to ensure that questions are worded properly and do not initiate any thoughts from the readers. Another thing to ensure is that the language used is up to date. In addition to removing biased wording, it is also important to ensure that the words are recent enough and are not words we no longer use. Since this survey has been ongoing for a long time, such measures should maintain the quality of the survey. Lastly, the increased coverage of participants would also be very beneficial. A method could be to survey states by state ensuring that they meet a certain percentage of the population before moving on to the next state. However, this would be a very time-consuming and tedious process, not every survey has the funding and time for such an approach. These implementations would improve the quality of the survey allowing for more accurate presentations of the population. 
+
+## A Shift in Attitude
+
+One major finding from the results is the change in attitudes towards women working. From the results, the attitudes towards women working have significantly increased over time. As seen in figure 6, the participants are asked is “better for men to work or women to tend home”. Around the year 1984, the two lines crossed indicating a changing point in attitude. The number of people who strongly agreed with this question has fallen under the number of people who strongly disagree. Another important time stamp to mention is in 2015, another interesting point of two lines. The number of people who answered “strongly disagree” even surpassed the number of people who agreed. From these two distinct indications in years 1984 and 2015, the data displays the change of attitude towards women in the workplace. Women are no longer expected to be the ones dedicated to tending home. Finally, looking at recent trends, both “disagree” and “strongly agree” have a sharp increase. The overall attitudes has shifted from unsupportive of women to work to more supportive attitudes. However, there is a big dip around 2021 in “disagree” and “strongly agree” and is also displayed in the other lines, this could be attributed to the overall decrease in data collection in recent years. More data would be needed to make further judgments on where the trend might be moving next. 
+
+## A Shift in Full Time Work and Higher Education
+
+The trend of women participating in full-time work and education is also increasing. Upon taking a look at @fig-eduTojob, the number of graduate, undergraduate, and full-time lines is trending upwards. There are some significant jumps in the lines, however, this could be due to the data collection amount as these jumps are also observed in some other figures such as figure 8. With the attitudes steadily becoming more positive towards women in the workplace, the pursuit of higher education and full-time employment has also significantly increased. Something interesting observed is that the peak number of full-time workers is less than the most recent data. To gain insight into why this may be, additional research was done. In the Forbes article, it talks about the significant increase of women in higher education. With full-time working women decreasing, it could be attributed to them obtaining higher education instead of choosing to work now. Overall, this is a good trend as more women are pursuing higher education, and should allow them to obtain more skilled jobs in the future. [@educ_women]
+
+## Extension Effect of the Financial Crisis and Women in Work Place
+
+Financial crises always have a devastating impact on society, how does it affect the women in the workforce? The financial crisis this section refers to is the 2008 housing bubble. There are also a few things that the data captured in the results section. In @fig-education, there is a sharp decrease in every line in the chart. The number of women that are participating in Full-time work, studying for graduation, or bachelor's all decreased. Upon doing additional research, in this paper [@impact_women], when an economic crisis occurs, the gender norms and biases we often forget about resurface. During the crisis, companies often cut costs by reducing labor. As a result, companies often decide to start with female workers because they are often seen as “secondary income” for the family. Something the article mentioned is loans taken out by women were impacted more, as lenders became more skeptical which leads to an impact on women-owned businesses. The number of graduate and bachelor women students also decreased, this could be because that family can no longer support the education, and decided that this would be a method of cutting living expenses. One example the paper mentioned is that women in India are expected to eat less as a result of reduced income to ensure that the rest of the family has enough food. As a result, women are often affected more by economic crises. 
+
+## Future Research Directions
+
+### Supplementary Survey
+
+To gain more insight into the problem, we have created our version of the survey. This survey is focused on getting answers from different perspectives on the issue. The questionnaire also incorporates considerations to reduce biases and also provide a bigger scale response other than just strongly disagree to strongly agree. Previous surveys do not provide enough insight into instances of women facing challenges in work place, the amount of questions that look into the attitudes toward women in the workplace is also very limited. As a result, this survey will aim to gain more insight with more detailed questions such as “Have you heard or witnessed a men colleague being paid less for the same position compared to women?”, the same question is also asked but for men. This will highlight the disproportionate amount of barriers and issues that women have to face compared to men and endure in the workplace. The data gathered from this survey can also be used to extend this current paper, allowing us to do a deeper analysis with the additional collected data. 
+
+Please see the @sec-appendix to view the full supplementary survey.
+
+# Conclusion
+
+With the data from the U.S. General Social Survey [@GSS], the paper utilized it to gain further insight into the challenges women are enduring in the workplace. The time frame is slightly different in each figure but mostly focuses from around 1970 to 2022. To gain further insight, we looked at questions that could gain insight into attitudes towards women working and questions that could be affecting factors to women participating in the workforce. The data revealed that women overall have gained significant progress, but there are still many factors that need to be taken into consideration. Progress is indicated by a steady increase in positive attitudes towards women in the workplace, and also an increasing amount of women pursuing higher education. While these are good indicators of progress, there is still a lot to be uncovered. These questions do not provide for direct indication of the gender pay gap which is often the most brought up issue. More research and data gathering would need to be done to provide further insight into this tip-of-the-iceberg problem. We must continue to work to provide gender equality in the workplace, where there is still a lot of room for everyone to contribute to a more equal working environment. Let’s continue the momentum and ensure we continue working for an equal workforce. 
+
+# Appendix {#sec-appendix}
+
+Here is the link to our supplementary survey:
+
+<https://docs.google.com/forms/d/e/1FAIpQLSeF9oTRHWVcXK2nfLnddAI3mIWAVgcAJ3XnVthpz49frdeWFA/viewform>
+
+## Supplementary Survey Questions:
+
+1. How old are you?
+- 0-18
+- 18-30
+- 31-50
+- 51+
+
+2. Which state do you live in?
+
+3. Which gender do you mostly identify with?
+
+4. Which industry do you work in?
+
+- Transportation
+- Pharmaceutical
+- Telecommunications
+- Manufacturing
+- Mining
+- Hospitality
+- Media and news
+- Agriculture
+- Computer and technology
+- Education
+- Finance and economics
+- Other:
+
+5. On a scale of 0 to 10 how much do you agree with the statements below, 5 for neither agree or disagree
+
+6. Women should stay home and not work (Scale of 1-10)
+
+7. Men should be paid more than Women (Scale of 1-10)
+
+8. Women are more capable than men at work (Scale of 1-10)
+
+9. Men make better decisions than women at work (Scale of 1-10)
+
+10. Women are better leaders are work (Scale of 1-10)
+
+11. Have you personally experienced or seen inequality at work where women are suffering?
+
+- Yes
+- No
+
+12. Have you personally experienced or seen inequality at work where men are suffering?
+
+- Yes
+- No
+
+13. Have you personally experienced or witnessed sexual harassment at work towards men?
+
+- Yes
+- No
+
+14. Have you personally experienced or witnessed sexual harassment at work towards women?
+
+- Yes
+- No
+
+15. Do you think your workplace is more inclusive to men?
+
+- Yes
+- No
+
+16. Do you think your workplace is more inclusive to women?
+
+- Yes
+- No
+
+17. Have you heard or witnessed a men colleagues being paid less for the same position compared to women?
+
+- Yes
+- No
+
+18. Do you think women workers have the same amount of support as men workers? If so please elaborate on your example.
+
+19. How much support women gets compared to men (Scale of 1-10)
+
+20. Thank you so much for your participation in this survey! The data may be collected to produce a paper focusing on challenges women face in the work place. If you do not agree with the usage your data please select No and Yes to agree to the usage of your data. If you have any questions about the survey and data, please do not hesitate and contact me at harrison8818@gmail.com
+
+- Yes
+- No
+
+
+
+\newpage
+
+
+# References
+
+
+
+
