@@ -475,6 +475,91 @@ Here is the link to our supplementary survey:
 
 <https://docs.google.com/forms/d/e/1FAIpQLSeF9oTRHWVcXK2nfLnddAI3mIWAVgcAJ3XnVthpz49frdeWFA/viewform>
 
+## Supplementary Survey Questions:
+
+1. How old are you?
+- 0-18
+- 18-30
+- 31-50
+- 51+
+
+2. Which state do you live in?
+
+3. Which gender do you mostly identify with?
+
+4. Which industry do you work in?
+
+- Transportation
+- Pharmaceutical
+- Telecommunications
+- Manufacturing
+- Mining
+- Hospitality
+- Media and news
+- Agriculture
+- Computer and technology
+- Education
+- Finance and economics
+- Other:
+
+5. On a scale of 0 to 10 how much do you agree with the statements below, 5 for neither agree or disagree
+
+6. Women should stay home and not work (Scale of 1-10)
+
+7. Men should be paid more than Women (Scale of 1-10)
+
+8. Women are more capable than men at work (Scale of 1-10)
+
+9. Men make better decisions than women at work (Scale of 1-10)
+
+10. Women are better leaders are work (Scale of 1-10)
+
+11. Have you personally experienced or seen inequality at work where women are suffering?
+
+- Yes
+- No
+
+12. Have you personally experienced or seen inequality at work where men are suffering?
+
+- Yes
+- No
+
+13. Have you personally experienced or witnessed sexual harassment at work towards men?
+
+- Yes
+- No
+
+14. Have you personally experienced or witnessed sexual harassment at work towards women?
+
+- Yes
+- No
+
+15. Do you think your workplace is more inclusive to men?
+
+- Yes
+- No
+
+16. Do you think your workplace is more inclusive to women?
+
+- Yes
+- No
+
+17. Have you heard or witnessed a men colleagues being paid less for the same position compared to women?
+
+- Yes
+- No
+
+18. Do you think women workers have the same amount of support as men workers? If so please elaborate on your example.
+
+19. How much support women gets compared to men (Scale of 1-10)
+
+20. Thank you so much for your participation in this survey! The data may be collected to produce a paper focusing on challenges women face in the work place. If you do not agree with the usage your data please select No and Yes to agree to the usage of your data. If you have any questions about the survey and data, please do not hesitate and contact me at harrison8818@gmail.com
+
+- Yes
+- No
+
+
+
 \newpage
 
 
