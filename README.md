@@ -23,7 +23,7 @@ https://gss.norc.org/Get-The-Data
 2. Run `scripts/simulate_data.R` to simulate what the data could look like
 3. Run `scripts/test_data.R` to test the data
 4. Run `scripts/data_cleaning.R` to generate the clean data
-5. Run `/paper/paper.qmd` and render the quarto file to see the pdf
+5. Run `/paper/women_workplace.qmd` and render the quarto file to see the pdf
 
 
 ## Statement on LLM usage
